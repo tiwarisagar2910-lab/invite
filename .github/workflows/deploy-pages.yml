@@ -23,6 +23,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Validate invitation artwork
+        run: |
+          for file in assets/jv-emblem.png assets/couple.webp assets/ganpati.png assets/nashik-real.webp assets/reception-map-qr.png assets/favicon.png assets/social-preview.jpg; do
+            if [ ! -s "$file" ]; then
+              echo "::error file=$file::Required original wedding invitation artwork is missing"
+              exit 1
+            fi
+          done
       - name: Configure Pages
         uses: actions/configure-pages@v5
         with:
