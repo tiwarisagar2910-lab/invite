@@ -4,21 +4,18 @@ This is the **separate public guest-facing invitation** for Friday 4 and Saturda
 
 **Official guest link once published:** https://tinyurl.com/jyotisangvaibhav
 
-## Current deployment requirements
+## Website status
 
-The site code (`index.html`, `styles.css`, `app.js`, `config.js`) and the Pages deployment workflow are committed. To finish the initial publishing setup:
-
-1. Extract the `Jyoti_Vaibhav_Invitation_Assets.zip` package from ChatGPT. Upload its **`assets/` directory and its seven image files** to the root of this repository. Do not upload the ZIP itself.
-2. Open **Settings → Pages** in this repository; under **Build and deployment**, set **Source → GitHub Actions**. The existing workflow at `.github/workflows/deploy-pages.yml` will run on the next commit or can be rerun from **Actions**.
-3. Verify all images, schedule, family names, mobile layout, and Maps QR at https://tiwarisagar2910-lab.github.io/invite/
-4. Verify TinyURL points to that URL before circulating the guest invitation.
+Published via GitHub Actions. All seven original artwork files are committed in `assets/`. Updates to `main` automatically redeploy. Guest-facing URL: https://tinyurl.com/jyotisangvaibhav
 
 ## Celebration schedule
 
-- Friday 4 December — Carnival, 4:00 PM
-- Friday 4 December — Engagement & Sangeet, 8:00 PM
-- Saturday 5 December — Pheras, 12:00–5:00 PM
-- Saturday 5 December — Reception, 8:00 PM onward, Swaminarayan Banquet Hall, Panchavati, Nashik
+- Friday 4 December — Carnival & Haldi, 4:00–6:00 PM
+- Friday 4 December — Sangeet & Dinner, 7:00–11:00 PM
+- Saturday 5 December — Wedding ceremony, from 12:00 PM
+- Saturday 5 December — Reception Dinner, from 8:00 PM
+
+All ceremonies take place at Swaminarayan Hall, Nashik, as listed on the physical printed card. The website also includes family acknowledgements and blessings; the five organizations in the card's प्रतिष्ठान section are intentionally not published.
 
 Reception directions: https://maps.app.goo.gl/tUULMt9mxJoBoh8c6
 
@@ -26,7 +23,7 @@ Reception directions: https://maps.app.goo.gl/tUULMt9mxJoBoh8c6
 
 Update **`config.js`** for dates, times, family names, and venue information. Edit `index.html` and `styles.css` only for design changes. Changes committed to `main` will trigger the configured Pages deployment.
 
-Currently the venues for Carnival, Engagement & Sangeet, and Pheras are intentionally listed as *coming soon*, rather than being guessed.
+Venue information and schedule match the printed card. The address and map link retain previously verified information supplied for Swaminarayan Hall, Panchavati, Nashik.
 
 ## Privacy
 

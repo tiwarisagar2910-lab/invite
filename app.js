@@ -19,7 +19,7 @@
   function renderFamilies() {
     familyCards.innerHTML = ['bride','groom'].map(type => {
       const f = cfg.family[type];
-      return '<article class="family-card"><span class="family-type">' + (type === 'bride' ? 'THE BRIDE' : 'THE GROOM') + '</span><h3>' + safe(f.name) + '</h3><p class="relation">' + safe(f.relation) + '</p><p class="parent">' + safe(f.mother) + '</p><p class="family-and">&amp;</p><p class="parent">' + safe(f.father) + '</p></article>';
+      return '<article class="family-card"><span class="family-type">' + (type === 'bride' ? 'THE BRIDE' : 'THE GROOM') + '</span><h3>' + safe(f.name) + '</h3><p class="profession">' + safe(f.profession || '') + '</p><p class="relation">' + safe(f.relation) + '</p><p class="parent">' + safe(f.mother) + '</p><p class="family-and">&amp;</p><p class="parent">' + safe(f.father) + '</p></article>';
     }).join('');
   }
 

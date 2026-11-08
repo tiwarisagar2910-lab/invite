@@ -99,3 +99,33 @@ a{color:inherit} button,a{font:inherit} button{cursor:pointer} img{max-width:100
 }
 @media(max-width:370px){.hero h1{font-size:47px}.topnav nav a{font-size:9px}.topnav nav{gap:9px}.event-card{grid-template-columns:52px minmax(0,1fr);gap:12px}.event-info h3{font-size:31px}.day-button{font-size:10px;padding:9px 11px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}.button,.event-card,.toast{transition:none}}
+
+/* Printed invitation: devotional prelude, family acknowledgements and blessings */
+.additional-invocation{font:600 13px/1.4 'Noto Serif Devanagari',serif;color:#a57a36;margin:5px 0 6px}
+.deity-blessing{font:500 13px/1.45 'Noto Serif Devanagari',serif;color:#81504b;margin:2px auto 14px}
+.printed-invitation{text-align:center;background:#fff9ef;border-top:1px solid #e8d4b3;border-bottom:1px solid #e8d4b3}
+.printed-invitation h2{font:500 clamp(43px,5vw,67px)/1 'Cormorant Garamond',Georgia,serif;color:var(--maroon);margin:15px auto 28px}
+.printed-invitation h2 em{color:var(--wine)}
+.printed-invocation{font:600 17px/1.9 'Noto Serif Devanagari',serif;color:#8f5d36;margin:0 auto 25px;max-width:620px}
+.printed-message{font:500 clamp(15px,1.6vw,19px)/2 'Noto Serif Devanagari',serif;color:#683e3b;max-width:930px;margin:0 auto}
+.invitation-flourish{display:block;font-size:28px;color:#b88b4e;margin-top:22px}
+.profession{font:500 12px 'DM Sans',sans-serif;color:#96764e;letter-spacing:.07em;margin:-2px 0 14px}
+.wellwishers{background:#fcf5e9}
+.wellwishers-grid{max-width:1050px;margin:0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.wisher-card{padding:32px 30px;background:#fffcf5;border:1px solid #dfc69e;border-radius:16px;text-align:center;box-shadow:0 10px 28px #6e35220a}
+.wisher-card h3,.mangal-prayer h3{font:600 25px/1.4 'Noto Serif Devanagari',serif;color:#7b2437;margin:0 0 16px}
+.wisher-card p{font:500 16px/1.85 'Noto Serif Devanagari',serif;color:#59403a;margin:5px auto;max-width:520px}
+.wisher-card-wide{grid-column:1/-1}
+.mangal-prayer{margin:38px auto 0;max-width:830px;text-align:center;padding:28px 30px;border-top:1px solid #d6b88d}
+.mangal-prayer p{font:500 17px/1.9 'Noto Serif Devanagari',serif;color:#694940;margin:0}
+.mangal-prayer>div{margin-top:14px;color:#9b6f35;font:600 17px 'Noto Serif Devanagari',serif}
+@media(max-width:600px){
+ .wellwishers-grid{grid-template-columns:1fr}
+ .wisher-card-wide{grid-column:auto}
+ .wisher-card{padding:26px 18px}
+ .wisher-card h3{font-size:22px}
+ .wisher-card p{font-size:14px}
+ .printed-message{font-size:15px;line-height:1.9}
+ .printed-invocation{font-size:15px}
+ .mangal-prayer{padding:24px 12px}
+}
