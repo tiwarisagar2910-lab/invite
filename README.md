@@ -10,7 +10,7 @@ The site code (`index.html`, `styles.css`, `app.js`, `config.js`) and the Pages 
 
 1. Extract the `Jyoti_Vaibhav_Invitation_Assets.zip` package from ChatGPT. Upload its **`assets/` directory and its seven image files** to the root of this repository. Do not upload the ZIP itself.
 2. Open **Settings → Pages** in this repository; under **Build and deployment**, set **Source → GitHub Actions**. The existing workflow at `.github/workflows/deploy-pages.yml` will run on the next commit or can be rerun from **Actions**.
-3. Verify all images, schedule, family names, mobile layout, and Maps QR at https://tiwarisagar2910-lab.github.io/jyoti-vaibhav-invite/
+3. Verify all images, schedule, family names, mobile layout, and Maps QR at https://tiwarisagar2910-lab.github.io/invite/
 4. Verify TinyURL points to that URL before circulating the guest invitation.
 
 ## Celebration schedule

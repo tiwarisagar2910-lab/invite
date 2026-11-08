@@ -47,7 +47,7 @@ jobs:
         shell: bash
         run: |
           echo '=== Direct GitHub Pages invitation ==='
-          curl --location --silent --show-error --max-time 20 --output /tmp/direct-page.html --write-out 'Direct HTTP=%{http_code} final_url=%{url_effective} content_type=%{content_type}\n' 'https://tiwarisagar2910-lab.github.io/jyoti-vaibhav-invite/' || true
+          curl --location --silent --show-error --max-time 20 --output /tmp/direct-page.html --write-out 'Direct HTTP=%{http_code} final_url=%{url_effective} content_type=%{content_type}\n' 'https://tiwarisagar2910-lab.github.io/invite/' || true
           echo '=== TinyURL guest link ==='
           curl --location --silent --show-error --max-time 20 --output /tmp/short-page.html --write-out 'Short HTTP=%{http_code} final_url=%{url_effective} content_type=%{content_type}\n' 'https://tinyurl.com/jyotisangvaibhav' || true
           echo '=== Page title from direct link ==='
