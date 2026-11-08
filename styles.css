@@ -55,7 +55,7 @@ body.invite-open .river-ribbon{visibility:visible;opacity:1;transition:opacity .
 .hero{padding:18px clamp(14px,3.5vw,52px) 40px;background:linear-gradient(150deg,#fffaf0 0%,#f7e8d3 100%)}
 .hero-inner{max-width:1420px;grid-template-columns:minmax(0,.84fr) minmax(0,1.16fr);gap:clamp(14px,2.7vw,40px);padding:clamp(13px,2vw,30px);align-items:center}
 .hero-copy{padding:clamp(14px,2vw,28px) clamp(8px,2vw,24px);align-self:center;text-align:center}
-.hero .ganpati{width:54px;height:65px;margin:0 auto 6px}
+.hero .ganpati{width:104px;height:128px;object-fit:contain;margin:0 auto 8px}
 .hero .eyebrow{margin:0 0 13px;letter-spacing:.11em}
 .hero .couple-names{font-size:clamp(44px,5vw,78px);line-height:1.05;margin:4px 0 12px}
 .hero .hero-date{font-size:13px;margin:6px 0 0;line-height:1.5}
@@ -85,7 +85,7 @@ html[lang="hi"] .families .wisher-card h4,html[lang="hi"] .families .wisher-card
  .hero{padding:12px 12px 28px}
  .hero-inner{grid-template-columns:1fr;padding:12px;gap:12px}
  .hero-copy{padding:5px 7px 0}
- .hero .ganpati{width:37px;height:44px;margin-bottom:3px}
+ .hero .ganpati{width:72px;height:88px;object-fit:contain;margin-bottom:5px}
  .hero .eyebrow{font-size:9px;letter-spacing:.05em;margin:2px 0 5px}
  .hero .couple-names{font-size:clamp(42px,11vw,60px);line-height:1.05;margin:0 0 4px}
  .hero .hero-date{font-size:11px;margin:3px 0 2px}
