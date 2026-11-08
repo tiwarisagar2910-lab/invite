@@ -1,88 +1,187 @@
 (() => {
   'use strict';
   const cfg = window.JV_INVITE;
-  const safe = s => String(s ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
-  const eventsList = document.querySelector('#eventsList');
-  const familyCards = document.querySelector('#familyCards');
+  if (!cfg) return;
+  const translations = {
+    en: {
+      skip:'Skip to events', navEvents:'Events', navFamilies:'Families', navDirections:'Directions',
+      coverBlessing:'With the blessings of Lord Venkateshwara', coverKicker:'A wedding invitation',
+      brideShort:'Jyoti', groomShort:'Vaibhav', and:'&', coverDate:'4 & 5 December 2026 · Nashik',
+      letterText:'YOU ARE INVITED', openInvitation:'Tap to open your invitation',
+      heroBlessing:'Together with our families', heroTitleFirst:'Two hearts.', heroTitleSecond:'One beautiful beginning.',
+      heroSub:'With love and blessings, we invite you to celebrate the wedding of', heroVisualLabel:'Together with our loved ones',
+      viewCelebrations:'Explore our celebrations ↓', celebrationsEyebrow:'The celebrations',
+      celebrationsTitle:'Four moments to remember', eventsSubtitle:'All four celebrations, at a glance.',
+      filterAll:'All 4 events', filterFriday:'Fri, 4 Dec', filterSaturday:'Sat, 5 Dec',
+      friday:'Friday · 4 December 2026', saturday:'Saturday · 5 December 2026',
+      venueShort:'Swaminarayan Hall · Nashik', directionsAction:'Directions ↗',
+      inviteHeading:'A heartfelt invitation',
+      inviteMessage:'With the blessings of Lord Venkateshwara and our families, we warmly invite you to join us, celebrate with us, and bless the bride and groom.',
+      familiesEyebrow:'Together with our families', familiesTitle:'Two hearts, two families',
+      blessingsTitle:'With love & blessings', prayerTitle:'A prayer for a beautiful journey',
+      prayerText:'May the newlyweds be blessed with lifelong happiness, harmony, good health and love.',
+      directionsEyebrow:'Find your way', directionsTitle:'We will see you there',
+      venueLabel:'Wedding venue', venueName:'Swaminarayan Hall', venueAddress:'Panchavati, Nashik, Maharashtra',
+      venueNote:'All four wedding celebrations take place here.', mapsButton:'Open Google Maps ↗', qrCaption:'Scan for directions',
+      footerDate:'4 & 5 December 2026 · Nashik', footerNote:'Your presence and blessings mean the world to us.',
+      parentsJoin:'&', openAria:'Open the wedding invitation', navAria:'Main navigation', languageAria:'Invitation language',
+      paperHeading:'Jyoti & Vaibhav | Wedding Invitation', altGanpati:'Gold Ganpati illustration',
+      altEmblem:'Jyoti Sang Vaibhav wedding emblem', altCouple:'Illustration of Jyoti and Vaibhav in Indian wedding attire',
+      altQr:'Wedding venue QR code'
+    },
+    hi: {
+      skip:'कार्यक्रम देखें', navEvents:'कार्यक्रम', navFamilies:'परिवार', navDirections:'स्थान',
+      coverBlessing:'श्री वेंकटेश भगवान की असीम कृपा से', coverKicker:'सादर स्नेह निमंत्रण',
+      brideShort:'ज्योति', groomShort:'वैभव', and:'संग', coverDate:'४ एवं ५ दिसंबर २०२६ · नाशिक',
+      letterText:'सादर आमंत्रण', openInvitation:'निमंत्रण खोलने के लिए स्पर्श करें',
+      heroBlessing:'परिवार के आशीर्वाद के साथ', heroTitleFirst:'दो हृदय।', heroTitleSecond:'एक मंगलमय शुरुआत।',
+      heroSub:'सप्रेम आमंत्रण है, हमारे शुभ विवाह के मंगलमय अवसर पर पधारकर आशीर्वाद दें',
+      heroVisualLabel:'अपनों के स्नेह और आशीर्वाद के साथ', viewCelebrations:'मांगलिक कार्यक्रम देखें ↓',
+      celebrationsEyebrow:'मांगलिक कार्यक्रम', celebrationsTitle:'चार मंगलमय अवसर',
+      eventsSubtitle:'समस्त विवाह कार्यक्रमों की जानकारी एक ही स्थान पर।',
+      filterAll:'सभी ४ कार्यक्रम', filterFriday:'शुक्र, ४ दिसंबर', filterSaturday:'शनि, ५ दिसंबर',
+      friday:'शुक्रवार · ४ दिसंबर २०२६', saturday:'शनिवार · ५ दिसंबर २०२६',
+      venueShort:'स्वामीनारायण हॉल · नाशिक', directionsAction:'मार्ग देखें ↗',
+      inviteHeading:'सादर स्नेह निमंत्रण',
+      inviteMessage:'परम पिता की असीम अनुकम्पा एवं श्री वेंकटेश भगवान की कृपा से हमारे यहाँ शुभ विवाह का मंगलमय अवसर है। इस पावन अवसर पर आप सपरिवार पधारकर वर-वधू को अपना स्नेह एवं शुभाशीर्वाद प्रदान कर हमें अनुगृहीत करें।',
+      familiesEyebrow:'परिवार का स्नेह एवं आशीर्वाद', familiesTitle:'दो हृदय, दो परिवार',
+      blessingsTitle:'स्नेह एवं शुभाशीर्वाद', prayerTitle:'॥ मंगल कामना ॥',
+      prayerText:'भगवान श्री वेंकटेश से प्रार्थना है कि नवदम्पति पर सदैव अपनी कृपा, आशीर्वाद एवं मंगलमय जीवन का वरदहस्त बनाए रखें।',
+      directionsEyebrow:'विवाह स्थल', directionsTitle:'आपका हार्दिक स्वागत है',
+      venueLabel:'विवाह स्थल', venueName:'स्वामीनारायण हॉल', venueAddress:'पंचवटी, नाशिक, महाराष्ट्र',
+      venueNote:'सभी चार मांगलिक कार्यक्रम इसी स्थल पर आयोजित होंगे।', mapsButton:'गूगल मैप्स में देखें ↗',
+      qrCaption:'मार्ग जानने के लिए स्कैन करें', footerDate:'४ एवं ५ दिसंबर २०२६ · नाशिक',
+      footerNote:'आपकी उपस्थिति एवं आशीर्वाद हमारे लिए अमूल्य हैं।', parentsJoin:'एवं',
+      openAria:'विवाह निमंत्रण खोलें', navAria:'मुख्य नेविगेशन', languageAria:'निमंत्रण की भाषा',
+      paperHeading:'ज्योति संग वैभव | विवाह निमंत्रण', altGanpati:'श्री गणेश जी की स्वर्णिम छवि',
+      altEmblem:'ज्योति संग वैभव का विवाह चिह्न', altCouple:'पारम्परिक विवाह परिधान में ज्योति एवं वैभव का चित्र',
+      altQr:'विवाह स्थल का क्यूआर कोड'
+    }
+  };
+  const $ = selector => document.querySelector(selector);
+  const $$ = selector => Array.from(document.querySelectorAll(selector));
+  const safe = val => String(val == null ? '' : val).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const pages = $('#invitationPages');
+  const cover = $('#cover');
+  const openButton = $('#openInvitation');
+  let lang = 'en';
+  let filter = 'all';
+  let opened = false;
+  let opening = false;
 
-  function renderEvents(day='all') {
-    const rows = cfg.events.filter(ev => day === 'all' || ev.day === day);
-    eventsList.innerHTML = rows.map(ev => {
-      const num = ev.day.slice(-2);
-      const when = ev.day === '2026-12-04' ? '4 DECEMBER 2026' : '5 DECEMBER 2026';
-      const place = ev.venue ? '<span class="event-place">⌖ &nbsp;' + safe(ev.venue) + (ev.locationLine ? ', ' + safe(ev.locationLine) : '') + '</span>' : '<span class="event-place pending">Venue details coming soon</span>';
-      const map = ev.mapUrl ? '<a class="event-map" href="' + safe(ev.mapUrl) + '" target="_blank" rel="noopener noreferrer">Get directions ↗</a>' : '';
-      return '<article class="event-card" id="' + safe(ev.id) + '"><div class="event-date"><strong>' + safe(num) + '</strong><span>DEC · 2026</span></div><div class="event-info"><div class="event-small">' + safe(ev.dayLabel) + ' · ' + when + '</div><h3>' + safe(ev.title) + '</h3><p>' + safe(ev.description) + '</p>' + place + '</div><div class="event-action"><span class="event-time">' + safe(ev.time) + '</span>' + map + '</div></article>';
+  function renderEvents() {
+    const T = translations[lang];
+    const events = cfg.events.filter(e => filter === 'all' || e.date === filter);
+    $('#eventsList').innerHTML = events.map(event => {
+      const dateText = event.date === '2026-12-04' ? T.friday : T.saturday;
+      return `<article class="event-card" id="event-${safe(event.id)}">
+        <div class="event-top"><span class="event-date">${safe(dateText)}</span><span class="event-icon" aria-hidden="true">${safe(event.icon)}</span></div>
+        <h3>${safe(event.title[lang])}</h3><span class="event-time">${safe(event.time[lang])}</span>
+        <p>${safe(event.description[lang])}</p><span class="event-venue">⌖ ${safe(T.venueShort)}</span>
+        <a class="event-map" href="${safe(cfg.mapUrl)}" target="_blank" rel="noopener noreferrer">${safe(T.directionsAction)}</a>
+      </article>`;
     }).join('');
   }
-
   function renderFamilies() {
-    familyCards.innerHTML = ['bride','groom'].map(type => {
-      const f = cfg.family[type];
-      return '<article class="family-card"><span class="family-type">' + (type === 'bride' ? 'THE BRIDE' : 'THE GROOM') + '</span><h3>' + safe(f.name) + '</h3><p class="profession">' + safe(f.profession || '') + '</p><p class="relation">' + safe(f.relation) + '</p><p class="parent">' + safe(f.mother) + '</p><p class="family-and">&amp;</p><p class="parent">' + safe(f.father) + '</p></article>';
-    }).join('');
+    const T = translations[lang];
+    $('#familyCards').innerHTML = cfg.family.map(f => `<article class="family-card">
+      <div class="family-role">${safe(f.role[lang])}</div><h3>${safe(f.name[lang])}</h3>
+      <p class="family-profession">${safe(f.profession[lang])}</p>
+      <p class="family-relation">${safe(f.relation[lang])}</p>
+      <p class="family-parent">${safe(f.mother[lang])}</p><p class="family-join">${safe(T.parentsJoin)}</p>
+      <p class="family-parent">${safe(f.father[lang])}</p>
+    </article>`).join('');
+    $('#wellwishersGrid').innerHTML = cfg.acknowledgements.map(a => `<article class="wisher-card">
+      <h4>${safe(a.heading[lang])}</h4><p>${safe(a.people[lang])}</p>
+    </article>`).join('');
   }
-
-  document.querySelectorAll('.day-button').forEach(button => {
-    button.addEventListener('click', () => {
-      document.querySelectorAll('.day-button').forEach(b => {
-        b.classList.remove('active');
-        b.setAttribute('aria-pressed','false');
-      });
-      button.classList.add('active');
-      button.setAttribute('aria-pressed','true');
-      renderEvents(button.dataset.filter);
+  function setLanguage(next) {
+    lang = next === 'hi' ? 'hi' : 'en';
+    const T = translations[lang];
+    document.documentElement.lang = lang;
+    document.title = T.paperHeading;
+    $$('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (Object.prototype.hasOwnProperty.call(T, key)) el.textContent = T[key];
     });
-  });
-
-  let toastTimeout;
-  function toast(message) {
-    const node=document.getElementById('toast');
-    node.textContent=message;
-    node.classList.add('show');
-    clearTimeout(toastTimeout);
-    toastTimeout=setTimeout(() => node.classList.remove('show'), 2600);
+    $$('.language-btn').forEach(button => {
+      const active = button.dataset.lang === lang;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', String(active));
+    });
+    $('.nav-links').setAttribute('aria-label', T.navAria);
+    $('.language-switch').setAttribute('aria-label', T.languageAria);
+    openButton.setAttribute('aria-label', T.openAria);
+    $('.cover-emblem').src = lang === 'hi' ? 'assets/ganpati.png' : 'assets/jv-emblem.png';
+    $('.cover-emblem').alt = lang === 'hi' ? T.altGanpati : T.altEmblem;
+    $('.brand img').src = lang === 'hi' ? 'assets/ganpati.png' : 'assets/jv-emblem.png';
+    $('.brand span').textContent = lang === 'hi' ? 'ज्योति संग वैभव' : 'J & V';
+    $('.ganpati').alt = T.altGanpati;
+    $('.hero-visual img').alt = T.altCouple;
+    $('.qr-card img').alt = T.altQr;
+    $('.letter-initials').textContent = lang === 'hi' ? 'ज्योति ♥ वैभव' : 'J & V';
+    renderEvents();renderFamilies();
+    try { localStorage.setItem('jv-invitation-language', lang); } catch (err) { /* Preferences are optional. */ }
   }
-  async function shareInvitation() {
-    const share = {
-      title:'Jyoti & Vaibhav — Wedding Invitation',
-      text:'Join us for the wedding celebrations on 4 & 5 December 2026 in Nashik!',
-      url:'https://tinyurl.com/jyotisangvaibhav'
+  $$('.language-btn').forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.lang)));
+
+  function setFilter(value) {
+    filter = value;
+    $$('.day-button').forEach(button => {
+      const active = button.dataset.filter === filter;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', String(active));
+    });
+    renderEvents();
+  }
+  $$('.day-button').forEach(button => button.addEventListener('click', () => setFilter(button.dataset.filter)));
+
+  function showPages(target) {
+    if (opened) {
+      if (target) navigate(target);
+      return;
+    }
+    if (opening) return;
+    opening = true;
+    document.body.classList.add('is-opening');
+    const finish = () => {
+      opened = true;
+      opening = false;
+      pages.setAttribute('aria-hidden', 'false');
+      cover.setAttribute('aria-hidden', 'true');
+      document.body.classList.add('invite-open');
+      openButton.setAttribute('aria-expanded', 'true');
+      if (target) requestAnimationFrame(() => requestAnimationFrame(() => navigate(target)));
+      else { window.scrollTo({top:0,behavior:'instant'}); }
     };
-    try {
-      if(navigator.share) { await navigator.share(share); return; }
-      if(navigator.clipboard && location.protocol!=='file:') {
-        await navigator.clipboard.writeText(share.url);
-        toast('Invitation link copied');
-        return;
-      }
-      const input=document.createElement('textarea');
-      input.value=share.url;
-      document.body.appendChild(input);
-      input.select();
-      document.execCommand('copy');
-      input.remove();
-      toast('Invitation link copied');
-    } catch(err) {
-      if(err.name!=='AbortError') toast('Copy the invitation URL to share');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) finish();
+    else window.setTimeout(finish, 860);
+  }
+  function navigate(target) {
+    const element = document.getElementById(target);
+    if (target === 'events') setFilter('all');
+    if (element) {
+      const y = element.getBoundingClientRect().top + window.scrollY - 68;
+      window.scrollTo({top:Math.max(0,y),behavior:'instant'});
     }
   }
-  ['shareButton','shareHero'].forEach(id => {
-    const button = document.getElementById(id);
-    if(button) button.addEventListener('click', shareInvitation);
-  });
-  const observer = ('IntersectionObserver' in window) ? new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {threshold:.08}) : null;
-  document.querySelectorAll('.reveal').forEach(el => observer ? observer.observe(el) : el.classList.add('visible'));
-  renderEvents();
-  renderFamilies();
-  const ig = document.getElementById('instagramLink');
-  ig.href = cfg.instagramUrl;
-  ig.textContent = 'Instagram · ' + cfg.hashtag + ' ↗';
+  openButton.addEventListener('click', () => showPages('home'));
+  $('#openHint').addEventListener('click', () => showPages('home'));
+  $$('a[href^="#"]').forEach(link => link.addEventListener('click', event => {
+    const target = link.getAttribute('href').slice(1);
+    if (!['home','events','families','directions'].includes(target)) return;
+    event.preventDefault();
+    if (!opened) showPages(target);
+    else navigate(target);
+  }));
+  let savedLanguage = 'en';
+  try { savedLanguage = localStorage.getItem('jv-invitation-language') || 'en'; } catch (err) {}
+  setLanguage(savedLanguage);
+  if (location.hash && ['#home','#events','#families','#directions'].includes(location.hash)) {
+    pages.setAttribute('aria-hidden', 'false');
+    cover.setAttribute('aria-hidden', 'true');
+    opened = true;
+    document.body.classList.add('invite-open');
+    requestAnimationFrame(() => navigate(location.hash.slice(1)));
+  }
 })();

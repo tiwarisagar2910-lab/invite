@@ -3,90 +3,99 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#5b1628">
-  <meta name="robots" content="noindex, nofollow">
-  <meta name="description" content="Join Jyoti and Vaibhav for their two-day wedding celebration in Nashik, 4–5 December 2026. All event times, updates, and directions in one place.">
-  <meta property="og:title" content="Jyoti & Vaibhav | Wedding Celebrations">
-  <meta property="og:description" content="4 & 5 December 2026 · Nashik · Our wedding celebrations, with love and blessings.">
+  <meta name="theme-color" content="#5c1329">
+  <meta name="description" content="The wedding invitation of Jyoti Tiwari and Vaibhav Pandey, 4–5 December 2026, Swaminarayan Hall, Nashik.">
+  <meta property="og:title" content="Jyoti & Vaibhav | Wedding Invitation">
+  <meta property="og:description" content="Join us for our wedding celebrations on 4 & 5 December 2026 in Nashik.">
   <meta property="og:type" content="website">
-  <link rel="canonical" href="https://tiwarisagar2910-lab.github.io/invite/">
   <meta property="og:url" content="https://tiwarisagar2910-lab.github.io/invite/">
   <meta property="og:image" content="https://tiwarisagar2910-lab.github.io/invite/assets/social-preview.jpg">
+  <link rel="canonical" href="https://tiwarisagar2910-lab.github.io/invite/">
   <link rel="icon" href="assets/favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-  <title>Jyoti & Vaibhav | The Wedding Celebration</title>
+  <title>Jyoti & Vaibhav | Wedding Invitation</title>
   <script defer src="config.js"></script>
   <script defer src="app.js"></script>
 </head>
 <body>
-  <a class="skip-link" href="#events">Skip to celebrations</a>
-  <div class="top-rule" aria-hidden="true"></div>
-  <header class="topnav">
-    <a class="brand" href="#home" aria-label="Jyoti and Vaibhav — Home"><img src="assets/jv-emblem.png" alt="" width="43" height="43"><span>J <span class="amp">&</span> V</span></a>
-    <nav aria-label="Primary navigation">
-      <a href="#events">Events</a>
-      <a href="#families">Families</a>
-      <a href="#directions">Directions</a>
+  <a href="#events" class="skip-link" data-i18n="skip">Skip to events</a>
+  <header class="topbar" id="topbar">
+    <a class="brand" href="#home" aria-label="Jyoti and Vaibhav — Home"><img src="assets/jv-emblem.png" width="38" height="38" alt=""><span>J <i>&amp;</i> V</span></a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#events" data-nav="events" data-i18n="navEvents">Events</a>
+      <a href="#families" data-nav="families" data-i18n="navFamilies">Families</a>
+      <a href="#directions" data-nav="directions" data-i18n="navDirections">Directions</a>
     </nav>
-    <button class="share-top" type="button" id="shareButton" aria-label="Share invitation">Share <span aria-hidden="true">↗</span></button>
+    <div class="language-switch" role="group" aria-label="Invitation language">
+      <button type="button" class="language-btn active" data-lang="en" aria-pressed="true">EN</button>
+      <span aria-hidden="true">|</span>
+      <button type="button" class="language-btn" data-lang="hi" aria-pressed="false">हिन्दी</button>
+    </div>
   </header>
   <main>
-    <section class="hero" id="home">
-      <div class="hero-copy reveal">
-        <div class="blessing"><span class="line" aria-hidden="true"></span><span lang="hi">॥ श्री गणेशाय नमः ॥</span><span class="line" aria-hidden="true"></span></div>
-        <p class="additional-invocation" lang="hi">॥ श्रीमते रामानुजाय नमः ॥</p>
-        <p class="deity-blessing" lang="hi">श्री वेंकटेश भगवान की असीम कृपा से</p>
-        <img class="ganpati" src="assets/ganpati.png" alt="A traditional gold Ganpati illustration" width="100" height="118">
-        <p class="overline">Together with our families</p>
-        <h1>Two days.<br><em>One beautiful beginning.</em></h1>
-        <p class="hero-sub">With joy in our hearts, we invite you to celebrate the wedding of</p>
-        <img class="hero-monogram" src="assets/jv-emblem.png" alt="Jyoti Sang Vaibhav — JV wedding emblem" width="248" height="248">
-        <div class="hero-date"><span>04—05</span><div><span>DECEMBER</span><b>2026</b></div></div>
-        <p class="hero-location">Nashik, Maharashtra</p>
-        <div class="hero-actions"><a class="button primary" href="#events">Explore the celebrations <span aria-hidden="true">↓</span></a><button class="button outline" type="button" id="shareHero">Share invitation ↗</button></div>
-      </div>
-      <div class="hero-art reveal" aria-label="Illustration of the bride and groom in traditional wedding attire">
-        <div class="art-frame"><div class="art-flower tl">❧</div><div class="art-flower tr">❧</div><img src="assets/couple.webp" alt="Illustrated bride and groom, Jyoti and Vaibhav, in maroon and ivory traditional attire" fetchpriority="high"><div class="art-shade"></div><div class="art-bottom">Jyoti <i>♡</i> Vaibhav</div></div>
-        <div class="art-caption">A celebration of love, family & forever</div>
+    <section class="cover" id="cover" aria-label="Wedding invitation cover">
+      <div class="cover-stage">
+        <div class="cover-gold-line" aria-hidden="true"></div>
+        <p class="cover-verse" data-i18n="coverBlessing">With the blessings of Lord Venkateshwara</p>
+        <img class="cover-emblem" src="assets/jv-emblem.png" width="142" height="142" alt="Jyoti Sang Vaibhav wedding emblem">
+        <p class="cover-kicker" data-i18n="coverKicker">A wedding invitation</p>
+        <h1 class="cover-title"><span data-i18n="brideShort">Jyoti</span> <small data-i18n="and">&amp;</small> <span data-i18n="groomShort">Vaibhav</span></h1>
+        <p class="cover-date" data-i18n="coverDate">4 &amp; 5 December 2026 · Nashik</p>
+        <button type="button" class="envelope" id="openInvitation" aria-controls="invitationPages" aria-expanded="false" aria-label="Open the wedding invitation">
+          <span class="envelope-back"></span>
+          <span class="envelope-letter"><span class="letter-flower">❁</span><span class="letter-initials">J <i>&amp;</i> V</span><span class="letter-date" data-i18n="letterText">YOU ARE INVITED</span></span>
+          <span class="envelope-fold-left"></span><span class="envelope-fold-right"></span>
+          <span class="envelope-flap"></span>
+          <span class="envelope-seal">✦</span>
+        </button>
+        <button type="button" class="open-hint" id="openHint"><span data-i18n="openInvitation">Tap to open your invitation</span><span class="hint-arrow" aria-hidden="true"> ↓</span></button>
+        <div class="cover-ornament" aria-hidden="true">❦</div>
       </div>
     </section>
-    <section class="announcement" aria-label="Welcome message"><div class="ornament">❦</div><p>As two families come together, your presence and blessings would mean the world to us.</p><div class="ornament">❦</div></section>
-    <section class="printed-invitation section" id="invitation" aria-labelledby="invitation-title">
-      <div class="eyebrow">A heartfelt invitation · सादर स्नेह निमंत्रण</div>
-      <h2 id="invitation-title">With blessings, <em>we invite you</em></h2>
-      <p class="printed-invocation" lang="hi">वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ।<br>निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा॥</p>
-      <p class="printed-message" lang="hi">प्रिय मान्यवर / स्नेहीजन,<br>परम पिता की असीम अनुकम्पा एवं श्री वेंकटेश भगवान की कृपा से हमारे यहाँ शुभ विवाह का मंगलमय अवसर है। इस पावन अवसर पर आप परिवार पधारकर वर-वधू को अपना स्नेह एवं शुभाशीर्वाद प्रदान कर हमें अनुगृहीत करें।</p>
-      <span class="invitation-flourish" aria-hidden="true">❦</span>
-    </section>
-    <section class="celebrations section" id="events">
-      <div class="section-heading reveal"><div class="eyebrow">THE CELEBRATIONS</div><h2>Four moments to <em>remember</em></h2><p>All the festivities, thoughtfully together in one place. Details here will stay up to date.</p></div>
-      <div class="days-toggle" role="group" aria-label="Filter by celebration day">
-        <button class="day-button active" type="button" data-filter="all" aria-pressed="true">All events</button><button class="day-button" type="button" data-filter="2026-12-04" aria-pressed="false">Friday, 4 Dec</button><button class="day-button" type="button" data-filter="2026-12-05" aria-pressed="false">Saturday, 5 Dec</button>
-      </div>
-      <div class="events-list" id="eventsList" aria-live="polite"></div>
-      <p class="events-note">As noted on our printed invitation, all four celebrations are at Swaminarayan Hall, Nashik. Tap directions for the venue map.</p>
-    </section>
-    <section class="photo-panel" aria-label="Nashik photo"><img src="assets/nashik-real.webp" alt="Photograph of the Godavari riverfront and bridges in Nashik at dusk" loading="eager"><div class="photo-panel-overlay"><span>NASHIK</span><h2>Where our story becomes <em>forever</em></h2></div></section>
-    <section class="family-section section" id="families"><div class="section-heading reveal"><div class="eyebrow">WITH THE BLESSINGS OF OUR FAMILIES</div><h2>Two hearts, <em>two families</em></h2></div><div class="family-grid" id="familyCards"></div></section>
-    <section class="wellwishers section" id="wellwishers" aria-labelledby="wellwishers-heading">
-      <div class="section-heading reveal"><div class="eyebrow">परिवार परिचय एवं शुभेच्छुक</div><h2 id="wellwishers-heading">Love & blessings <em>from our families</em></h2><p>Family acknowledgements from our printed wedding invitation.</p></div>
-      <div class="wellwishers-grid">
-        <article class="wisher-card reveal" lang="hi"><h3>निवेदक</h3><p>श्रीमती ललती देवी एवं श्री रमाकान्त तिवारी</p><p>समस्त तिवारी परिवार</p></article>
-        <article class="wisher-card reveal" lang="hi"><h3>स्वागतापेक्षी</h3><p>श्रीमती निर्मलादेवी एवं श्री विजयकांत तिवारी</p><p>श्रीमती गीतादेवी एवं श्री रजनीकांत तिवारी</p></article>
-        <article class="wisher-card reveal" lang="hi"><h3>विनीत</h3><p>श्री अनिल तिवारी</p><p>श्री प्रभाकर तिवारी</p><p>श्री चतुर्भुज तिवारी</p></article>
-        <article class="wisher-card wisher-card-wide reveal" lang="hi"><h3>दर्शनाभिलाषी</h3><p>दिनेश, राजेश, अखिलेश, ज्ञानेश, वरुण, प्रशांत, सागर, सुमित, माधव, पार्थ, कार्तिक, वरदान, आदित्य, नारायण, दुर्वा, दिमीरा एवं समस्त तिवारी परिवार</p></article>
-      </div>
-      <div class="mangal-prayer reveal" lang="hi"><h3>॥ मंगल कामना ॥</h3><p>भगवान श्री वेंकटेश भगवान से प्रार्थना है कि नवदम्पति पर सदैव अपनी कृपा, आशीर्वाद एवं मंगलमय जीवन का वरदहस्त बनाए रखें।</p><div>॥ शुभम भवतु ॥</div></div>
-    </section>
-    <section class="directions section" id="directions"><div class="directions-layout">
-      <div class="directions-text reveal"><div class="eyebrow">FIND YOUR WAY</div><h2>We’ll see you <em>there</em></h2><p>All wedding celebrations · Friday 4 &amp; Saturday 5 December</p><h3>Swaminarayan<br>Hall</h3><p class="location-detail">Panchavati, Nashik, Maharashtra</p><a class="button primary" href="https://maps.app.goo.gl/tUULMt9mxJoBoh8c6" target="_blank" rel="noopener noreferrer">Open Google Maps <span aria-hidden="true">↗</span></a></div>
-      <div class="qr-panel reveal"><span class="qr-overline">SCAN FOR DIRECTIONS</span><a href="https://maps.app.goo.gl/tUULMt9mxJoBoh8c6" target="_blank" rel="noopener noreferrer" aria-label="Open wedding venue in Google Maps"><img src="assets/reception-map-qr.png" alt="Scannable QR code linking to the wedding venue on Google Maps" width="210" height="210" loading="eager"></a><span class="qr-caption">Or tap the map button</span></div>
-    </div></section>
+    <div id="invitationPages" class="invitation-pages" aria-hidden="true">
+      <section class="hero inner-section" id="home">
+        <div class="hero-inner ornate-frame">
+          <div class="corner corner-tl" aria-hidden="true">❦</div><div class="corner corner-tr" aria-hidden="true">❦</div>
+          <div class="hero-copy">
+            <img class="ganpati" src="assets/ganpati.png" width="74" height="92" alt="Gold Ganpati illustration">
+            <p class="eyebrow" data-i18n="heroBlessing">With the blessings of our families</p>
+            <h2><span data-i18n="heroTitleFirst">Two hearts.</span> <em data-i18n="heroTitleSecond">One beautiful beginning.</em></h2>
+            <p class="hero-sub" data-i18n="heroSub">With love and blessings, we invite you to celebrate the wedding of</p>
+            <h3 class="couple-names"><span data-i18n="brideShort">Jyoti</span> <i data-i18n="and">&amp;</i> <span data-i18n="groomShort">Vaibhav</span></h3>
+            <p class="hero-date" data-i18n="coverDate">4 &amp; 5 December 2026 · Nashik</p>
+            <a class="button-primary" href="#events" data-i18n="viewCelebrations">Explore our celebrations ↓</a>
+          </div>
+          <div class="hero-visual"><img src="assets/couple.webp" alt="Illustration of Jyoti and Vaibhav in Indian wedding attire"><span class="visual-bottom" data-i18n="heroVisualLabel">Together with our loved ones</span></div>
+        </div>
+      </section>
+      <section class="events inner-section" id="events">
+        <div class="section-heading"><span class="ornament-line" aria-hidden="true">✦</span><p class="eyebrow" data-i18n="celebrationsEyebrow">The celebrations</p><h2 data-i18n="celebrationsTitle">Four moments to remember</h2><p class="section-subtitle" data-i18n="eventsSubtitle">All four celebrations, at a glance.</p></div>
+        <div class="days-toggle" role="group" aria-label="Filter events by day">
+          <button class="day-button active" type="button" data-filter="all" aria-pressed="true" data-i18n="filterAll">All 4 events</button>
+          <button class="day-button" type="button" data-filter="2026-12-04" aria-pressed="false" data-i18n="filterFriday">Fri, 4 Dec</button>
+          <button class="day-button" type="button" data-filter="2026-12-05" aria-pressed="false" data-i18n="filterSaturday">Sat, 5 Dec</button>
+        </div>
+        <div id="eventsList" class="events-grid" aria-live="polite"></div>
+      </section>
+      <section class="blessing-quote inner-section" aria-label="Wedding invitation message">
+        <div class="quote-frame"><span aria-hidden="true">❦</span><h2 data-i18n="inviteHeading">A heartfelt invitation</h2><p data-i18n="inviteMessage">With the blessings of Lord Venkateshwara and our families, we warmly invite you to join us, celebrate with us, and bless the bride and groom.</p><span aria-hidden="true">❦</span></div>
+      </section>
+      <section class="families inner-section" id="families">
+        <div class="section-heading"><span class="ornament-line" aria-hidden="true">✦</span><p class="eyebrow" data-i18n="familiesEyebrow">Together with our families</p><h2 data-i18n="familiesTitle">Two hearts, two families</h2></div>
+        <div id="familyCards" class="family-grid"></div>
+        <div class="family-wishes"><h3 data-i18n="blessingsTitle">With love & blessings</h3><div id="wellwishersGrid" class="wellwishers-grid"></div></div>
+        <div class="mangal-blessing"><span aria-hidden="true">❧</span><h3 data-i18n="prayerTitle">A prayer for a beautiful journey</h3><p data-i18n="prayerText">May the newlyweds be blessed with lifelong happiness, harmony, good health and love.</p></div>
+      </section>
+      <section class="directions inner-section" id="directions">
+        <div class="section-heading"><span class="ornament-line" aria-hidden="true">✦</span><p class="eyebrow" data-i18n="directionsEyebrow">Find your way</p><h2 data-i18n="directionsTitle">We will see you there</h2></div>
+        <div class="directions-card ornate-frame"><div class="directions-copy"><span class="eyebrow" data-i18n="venueLabel">Wedding venue</span><h3 data-i18n="venueName">Swaminarayan Hall</h3><p data-i18n="venueAddress">Panchavati, Nashik, Maharashtra</p><p class="directions-note" data-i18n="venueNote">All four wedding celebrations take place here.</p><a class="button-primary maps-button" target="_blank" rel="noopener noreferrer" href="https://maps.app.goo.gl/tUULMt9mxJoBoh8c6" data-i18n="mapsButton">Open Google Maps ↗</a></div><div class="qr-card"><img src="assets/reception-map-qr.png" width="170" height="170" alt="Wedding venue QR code"><p data-i18n="qrCaption">Scan for directions</p></div></div>
+      </section>
+      <footer class="site-footer"><span class="footer-flourish" aria-hidden="true">❦</span><h2><span data-i18n="brideShort">Jyoti</span> <em data-i18n="and">&amp;</em> <span data-i18n="groomShort">Vaibhav</span></h2><p data-i18n="footerDate">4 &amp; 5 December 2026 · Nashik</p><p class="footer-message" data-i18n="footerNote">Your presence and blessings mean the world to us.</p><a class="instagram-link" href="https://www.instagram.com/jyotisangvaibhav/" target="_blank" rel="noopener noreferrer">@jyotisangvaibhav ↗</a></footer>
+    </div>
   </main>
-  <footer class="footer"><div class="footer-ornament">✾</div><h2>With love, <em>Jyoti & Vaibhav</em></h2><a id="instagramLink" href="https://www.instagram.com/jyotisangvaibhav/" target="_blank" rel="noopener noreferrer">Instagram · @jyotisangvaibhav ↗</a><p>4 & 5 December 2026 · Nashik</p><div class="footer-rule"></div><p class="footer-small">Made for our loved ones. See you at the celebrations!</p></footer>
-  <div id="toast" role="status" aria-live="polite" class="toast"></div>
+  <div class="river-ribbon" aria-hidden="true"></div>
 </body>
 </html>
