@@ -25,9 +25,9 @@ window.JV_INVITE = {
     { role:{en:'The groom',hi:'वर'},name:{en:'Vaibhav Pandey',hi:'वैभव पाण्डेय'},profession:{en:'Chemical Engineer',hi:'केमिकल इंजीनियर'},relation:{en:'Son of',hi:'सुपुत्र'},mother:{en:'Smt. Laxmi Pandey',hi:'श्रीमती लक्ष्मी पाण्डेय'},father:{en:'Shri Dharmendra Pandey',hi:'श्री धर्मेन्द्र पाण्डेय'} }
   ],
   acknowledgements: [
-    { heading:{en:'With regards',hi:'निवेदक'}, people:{en:'Smt. Lalti Devi & Shri Ramakant Tiwari · The Tiwari Family',hi:'श्रीमती ललती देवी एवं श्री रमाकान्त तिवारी · समस्त तिवारी परिवार'} },
+    { heading:{en:'With regards',hi:'निवेदक'}, people:{en:'Smt. Lalti Devi & Shri Ramakant Tiwari',hi:'श्रीमती ललती देवी एवं श्री रमाकान्त तिवारी'} },
     { heading:{en:'Welcoming you',hi:'स्वागतापेक्षी'}, people:{en:'Smt. Nirmala Devi & Shri Vijaykant Tiwari · Smt. Geeta Devi & Shri Rajnikant Tiwari',hi:'श्रीमती निर्मला देवी एवं श्री विजयकान्त तिवारी · श्रीमती गीता देवी एवं श्री रजनीकान्त तिवारी'} },
     { heading:{en:'With humble regards',hi:'विनीत'},people:{en:'Shri Anil Tiwari · Shri Prabhakar Tiwari · Shri Chaturbhuj Tiwari',hi:'श्री अनिल तिवारी · श्री प्रभाकर तिवारी · श्री चतुर्भुज तिवारी'} },
-    { heading:{en:'Eager to welcome you',hi:'दर्शनाभिलाषी'},people:{en:'Dinesh, Rajesh, Akhilesh, Gyanesh, Varun, Prashant, Sagar, Sumant, Madhav, Parth, Kartik, Vardan, Aditya, Narayan, Durva, Dimeera & the entire Tiwari family',hi:'दिनेश, राजेश, अखिलेश, ज्ञानेश, वरुण, प्रशांत, सागर, सुमंत, माधव, पार्थ, कार्तिक, वरदान, आदित्य, नारायण, दुर्वा, दीमीरा एवं समस्त तिवारी परिवार'} }
+    { heading:{en:'Eager to welcome you',hi:'दर्शनाभिलाषी'},people:{en:'Dinesh, Rajesh, Akhilesh, Gyanesh, Varun, Prashant, Sagar, Sumant, Madhav, Parth, Kartik, Vardan, Aditya, Narayan, Durva, Dimeera',hi:'दिनेश, राजेश, अखिलेश, ज्ञानेश, वरुण, प्रशांत, सागर, सुमंत, माधव, पार्थ, कार्तिक, वरदान, आदित्य, नारायण, दुर्वा, दीमीरा'} }
   ]
 };

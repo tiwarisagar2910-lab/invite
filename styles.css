@@ -96,3 +96,7 @@ html[lang="hi"] .families .wisher-card h4,html[lang="hi"] .families .wisher-card
  .directions{padding-top:21px}
 }
 @media(max-width:420px){.hero .couple-names{font-size:clamp(39px,10vw,47px)}}
+
+/* The Tiwari Family applies to all four acknowledgement rows. */
+.families .wishes-family-name{text-align:center;font:700 clamp(13px,1.5vw,16px)/1.4 var(--sans);letter-spacing:.11em;text-transform:uppercase;color:#805139;margin:-5px auto 14px}
+html[lang="hi"] .families .wishes-family-name{font:600 16px/1.7 var(--dev);letter-spacing:0;text-transform:none}
