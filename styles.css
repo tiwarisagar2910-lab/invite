@@ -46,3 +46,42 @@ html[lang="hi"] .cover-kicker,html[lang="hi"] .eyebrow,html[lang="hi"] .nav-link
 /* Once the envelope animation finishes, remove its stage from layout immediately;
    this keeps sticky navigation targets stable while the pages animate in. */
 body.invite-open .cover{display:none}
+
+/* November invitation refinements: complete portrait, lighter opening message, family flow */
+.hero{padding-top:0;background:linear-gradient(150deg,#fffaf0 0%,#f7e8d3 100%)}
+.hero-inner{max-width:1450px;grid-template-columns:minmax(0,.89fr) minmax(0,1.11fr);gap:clamp(16px,2.7vw,45px);padding:clamp(20px,2.4vw,36px);align-items:center}
+.hero-copy{padding:clamp(24px,3vw,48px) clamp(10px,2.2vw,30px)}
+.hero-visual{min-height:0;align-self:center;width:100%;border-radius:46% 46% 12px 12px / 12% 12% 12px 12px;overflow:hidden}
+.hero-visual img{position:static;display:block;width:100%;height:auto;max-height:none;object-fit:contain;object-position:center;aspect-ratio:auto}
+.visual-bottom{position:static;display:block;background:#f4e3c5;text-shadow:none;color:#785044;text-align:center;font:500 15px var(--serif);padding:10px 8px;border-top:1px solid #e4c88b}
+.hero .blessing-quote{background:none;color:var(--wine);padding:17px 12px 22px;margin:0 auto 12px;max-width:1150px;border-bottom:1px solid #dfc595}
+.hero .quote-frame{max-width:900px}
+.hero .quote-frame>span{font-size:16px;color:#bf8f46}
+.hero .quote-frame h2{font:600 clamp(33px,4.1vw,50px)/1.1 var(--serif);color:#681b35;margin:4px auto 7px}
+.hero .quote-frame p{font:400 clamp(17px,2vw,22px)/1.38 var(--serif);color:#754d46;max-width:800px;margin:0 auto 7px}
+.families .family-wishes{margin:0 auto 29px;max-width:1130px}
+.families .family-wishes>h3{font:600 clamp(28px,3.2vw,38px)/1 var(--serif);margin:5px 0 16px}
+.families .wellwishers-grid{display:block;background:#fffaf0;border:1px solid #d9bb88;border-radius:13px;padding:6px clamp(16px,3vw,32px);box-shadow:0 9px 28px #5b1e2910}
+.families .wisher-card{display:grid;grid-template-columns:minmax(148px,220px) minmax(0,1fr);gap:12px;align-items:center;border:0;border-bottom:1px solid #e7d5bb;border-radius:0;padding:13px 6px;background:transparent;text-align:left}
+.families .wisher-card:last-child{border-bottom:0}
+.families .wisher-card h4{font:700 11px/1.5 var(--sans);color:#8a533e;letter-spacing:.045em;margin:0;text-transform:uppercase}
+.families .wisher-card p{font:400 clamp(13px,1.35vw,15px)/1.5 var(--sans);color:#604442;margin:0;overflow-wrap:break-word}
+html[lang="hi"] .families .wisher-card h4,html[lang="hi"] .families .wisher-card p{font-family:var(--dev);text-transform:none;letter-spacing:0;line-height:1.7}
+html[lang="hi"] .hero .quote-frame h2{font:600 clamp(27px,3.3vw,39px)/1.5 var(--dev)}
+html[lang="hi"] .hero .quote-frame p{font:500 clamp(14px,1.7vw,18px)/1.8 var(--dev)}
+@media(max-width:1020px){
+ .hero-inner{grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);gap:14px;padding:18px}
+ .hero-copy{padding:18px 8px}
+}
+@media(max-width:720px){
+ .hero{padding:0 12px 35px}
+ .hero .blessing-quote{padding:18px 5px 15px;margin-bottom:12px}
+ .hero .quote-frame h2{font-size:35px}
+ .hero .quote-frame p{font-size:17px;line-height:1.5}
+ .hero-inner{grid-template-columns:1fr;padding:12px;gap:18px}
+ .hero-copy{padding:20px 7px 3px}
+ .hero-visual{max-width:580px;aspect-ratio:auto}
+ .hero-visual img{width:100%;height:auto;position:static;object-fit:contain}
+ .families .wisher-card{grid-template-columns:1fr;gap:3px;padding:11px 0}
+ .families .family-wishes{margin-bottom:22px}
+}
