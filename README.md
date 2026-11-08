@@ -15,7 +15,7 @@ Published via GitHub Actions. All seven original artwork files are committed in 
 - Saturday 5 December — Wedding ceremony, from 12:00 PM
 - Saturday 5 December — Reception Dinner, from 8:00 PM
 
-All ceremonies take place at Swaminarayan Hall, Nashik, as listed on the physical printed card. The website also includes family acknowledgements and blessings; the five organizations in the card's प्रतिष्ठान section are intentionally not published.
+All ceremonies take place at Swaminarayan Banquet Hall, Nashik, as listed on the physical printed card. The website also includes family acknowledgements and blessings; the five organizations in the card's प्रतिष्ठान section are intentionally not published.
 
 Reception directions: https://maps.app.goo.gl/tUULMt9mxJoBoh8c6
 
@@ -23,7 +23,7 @@ Reception directions: https://maps.app.goo.gl/tUULMt9mxJoBoh8c6
 
 Update **`config.js`** for dates, times, family names, and venue information. Edit `index.html` and `styles.css` only for design changes. Changes committed to `main` will trigger the configured Pages deployment.
 
-Venue information and schedule match the printed card. The address and map link retain previously verified information supplied for Swaminarayan Hall, Panchavati, Nashik.
+Venue information and schedule match the printed card. The address and map link retain previously verified information supplied for Swaminarayan Banquet Hall, Panchavati, Nashik.
 
 ## Privacy
 
