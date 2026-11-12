@@ -509,3 +509,80 @@ html[lang="hi"] .event-card h3{font-family:var(--dev)}
 @media(prefers-reduced-motion:reduce) {
   .music-toggle.is-playing span{animation:none}
 }
+
+
+/* Contrast and header alignment regression fixes — November 2026. */
+/* Illustration backgrounds became light while earlier dark-theme font tokens stayed pale. */
+.events-grid #event-sangeet {
+  --ev-title:#62314f;
+  --ev-date:#834363;
+  --ev-body:#705368;
+  --ev-rule:rgba(130,68,101,.23);
+  --ev-orn:#b77da1;
+}
+.events-grid #event-reception {
+  --ev-title:#74333a;
+  --ev-date:#93584d;
+  --ev-body:#76544b;
+  --ev-rule:rgba(151,86,72,.25);
+  --ev-orn:#c1876b;
+}
+.events-grid #event-sangeet h3,
+.events-grid #event-reception h3 {
+  color:var(--ev-title);
+  font-weight:600;
+  opacity:1;
+  text-shadow:none;
+}
+.events-grid #event-sangeet .event-date,
+.events-grid #event-reception .event-date {
+  color:var(--ev-date);
+  opacity:1;
+}
+.events-grid #event-sangeet p,
+.events-grid #event-reception p {
+  color:var(--ev-body);
+  opacity:1;
+}
+.topbar > .header-actions {
+  display:inline-flex;
+  flex-direction:row;
+  justify-self:end;
+  align-self:center;
+  align-items:center;
+  justify-content:flex-end;
+  width:max-content;
+  max-width:100%;
+  min-width:0;
+  gap:8px;
+}
+.topbar .header-actions > .language-switch {
+  display:inline-flex;
+  width:max-content;
+  max-width:none;
+  flex:0 0 auto;
+  align-items:center;
+  justify-self:auto;
+  white-space:nowrap;
+  padding:4px 5px;
+}
+.topbar .header-actions > .music-toggle {
+  display:grid;
+  flex:0 0 auto;
+  align-self:center;
+  margin:0;
+}
+@media(max-width:720px) {
+  .topbar > .header-actions {gap:6px}
+  .topbar .header-actions > .language-switch {padding:2px 4px}
+  .topbar .header-actions .language-btn {padding:6px 7px;font-size:10px}
+}
+@media(max-width:520px) {
+  .topbar > .header-actions {
+    grid-column:3;
+    grid-row:1;
+    gap:5px;
+    align-self:center;
+  }
+  .topbar .header-actions > .music-toggle {width:32px;height:32px}
+}
