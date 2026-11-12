@@ -218,7 +218,9 @@
     const element = document.getElementById(target);
     if (target === 'events') setFilter('all');
     if (element) {
-      const y = element.getBoundingClientRect().top + window.scrollY - 68;
+      const topbar = document.getElementById('topbar');
+      const headerOffset = topbar ? topbar.getBoundingClientRect().height + 8 : 76;
+      const y = element.getBoundingClientRect().top + window.scrollY - headerOffset;
       window.scrollTo({top:Math.max(0,y),behavior:'instant'});
     }
   }

@@ -31,6 +31,15 @@ jobs:
               exit 1
             fi
           done
+      - name: Check JavaScript and soundtrack assets
+        run: |
+          node --check app.js
+          for file in assets/mangal-rang-envelope-intro.mp3 assets/shehnai-ambient-loop.mp3; do
+            if [ ! -s "$file" ]; then
+              echo "::error file=$file::Wedding soundtrack asset is missing"
+              exit 1
+            fi
+          done
       - name: Configure Pages
         uses: actions/configure-pages@v5
         with:
@@ -52,3 +61,10 @@ jobs:
           curl --location --silent --show-error --max-time 20 --output /tmp/short-page.html --write-out 'Short HTTP=%{http_code} final_url=%{url_effective} content_type=%{content_type}\n' 'https://tinyurl.com/jyotisangvaibhav' || true
           echo '=== Page title from direct link ==='
           grep -Eo '<title>[^<]*</title>' /tmp/direct-page.html | head -1 || true
+          echo '=== Music assets served by GitHub Pages ==='
+          for asset in mangal-rang-envelope-intro.mp3 shehnai-ambient-loop.mp3; do
+            curl --fail --silent --show-error --location --retry 5 --retry-delay 2 --max-time 25 \
+              --output /dev/null \
+              --write-out "Audio $asset HTTP=%{http_code} content_type=%{content_type} size=%{size_download}\n" \
+              "https://tiwarisagar2910-lab.github.io/invite/assets/$asset"
+          done
