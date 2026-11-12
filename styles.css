@@ -107,3 +107,205 @@ html[lang="hi"] .families .wishes-family-name{font:600 16px/1.7 var(--dev);lette
 .common-event-venue a{color:#7b2135;font-weight:700;text-decoration:underline;text-decoration-color:#b88b4b;text-underline-offset:3px;margin-left:4px}
 html[lang="hi"] .common-event-venue{font-family:var(--dev);font-size:12px;line-height:1.6}
 @media(max-width:720px){.common-event-venue{padding:9px 10px;font-size:11px;gap:6px;margin-bottom:12px}}
+
+
+/* Themed celebration cards — illustrated through CSS only, no event photos. */
+.events {
+  background:linear-gradient(180deg,#fff8ec 0%,#f7eddd 100%);
+}
+.events .section-heading {margin-bottom:19px}
+.events .section-heading h2 {letter-spacing:-.015em}
+.events-grid {gap:14px}
+.events-grid .event-card {
+  --ev-fill:linear-gradient(145deg,#fffbf3,#f8e9d2);
+  --ev-border:#d9be92;
+  --ev-accent:#ad7d46;
+  --ev-title:#63263c;
+  --ev-date:#946c45;
+  --ev-body:#7c6054;
+  --ev-icon:#ae8650;
+  --ev-pill:#f3e3cc;
+  --ev-pill-text:#723c37;
+  --ev-pill-border:#e9d3b2;
+  --ev-rule:rgba(112,72,56,.16);
+  --ev-orn:#a8783d;
+  --ev-motif:"✦";
+  --ev-wash:radial-gradient(ellipse at 100% 0%,rgba(255,255,255,.65),transparent 65%);
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  min-height:221px;
+  padding:19px 17px 18px;
+  border:1px solid var(--ev-border);
+  border-top:4px solid var(--ev-accent);
+  border-radius:15px;
+  background:var(--ev-fill);
+  box-shadow:0 7px 22px rgba(75,31,38,.09), inset 0 1px rgba(255,255,255,.18);
+  gap:6px;
+}
+.events-grid .event-card::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:var(--ev-wash);
+}
+.events-grid .event-card::after {
+  content:var(--ev-motif);
+  position:absolute;
+  right:8px;
+  bottom:-30px;
+  z-index:0;
+  pointer-events:none;
+  font:400 125px/1 Georgia,serif;
+  color:var(--ev-orn);
+  opacity:.10;
+  transform:rotate(-16deg);
+}
+.events-grid .event-card > * {position:relative;z-index:1}
+.events-grid .event-card .event-top {
+  padding-bottom:9px;
+  border-bottom:1px solid var(--ev-rule);
+}
+.events-grid .event-card .event-date {
+  color:var(--ev-date);
+  font-size:10px;
+  letter-spacing:.075em;
+  line-height:1.5;
+}
+.events-grid .event-card .event-icon {
+  color:var(--ev-icon);
+  font-size:23px;
+  line-height:1.1;
+}
+.events-grid .event-card h3 {
+  margin:7px 0 4px;
+  color:var(--ev-title);
+  font-size:clamp(25px,2.15vw,32px);
+  line-height:1.08;
+  text-wrap:balance;
+}
+.events-grid .event-card .event-time {
+  margin:2px 0 7px;
+  padding:6px 11px;
+  border:1px solid var(--ev-pill-border);
+  border-radius:99px;
+  background:var(--ev-pill);
+  color:var(--ev-pill-text);
+  font-size:11px;
+  letter-spacing:.015em;
+  font-weight:700;
+  box-shadow:none;
+}
+.events-grid .event-card p {
+  margin:4px 0 0;
+  color:var(--ev-body);
+  font-size:12px;
+  line-height:1.55;
+  font-weight:500;
+}
+#event-haldi {
+  --ev-fill:linear-gradient(145deg,#fff9fa 0%,#f9e6ed 100%);
+  --ev-border:#e9becb;
+  --ev-accent:#c36e8b;
+  --ev-title:#7a2942;
+  --ev-date:#98506a;
+  --ev-body:#795967;
+  --ev-icon:#bd7293;
+  --ev-pill:#f5d7e2;
+  --ev-pill-text:#77374f;
+  --ev-pill-border:#e8bdcd;
+  --ev-rule:rgba(174,99,125,.22);
+  --ev-orn:#b96687;
+  --ev-motif:"❀";
+  --ev-wash:radial-gradient(circle at 100% 0%,rgba(255,255,255,.92),transparent 48%),radial-gradient(circle at 5% 100%,rgba(239,180,201,.42),transparent 52%);
+}
+#event-sangeet {
+  --ev-fill:linear-gradient(140deg,#3c274a 0%,#603253 56%,#3d2546 100%);
+  --ev-border:#865675;
+  --ev-accent:#d5a961;
+  --ev-title:#fff1e4;
+  --ev-date:#f2d5b6;
+  --ev-body:#f4dfeb;
+  --ev-icon:#f2cf8c;
+  --ev-pill:rgba(255,232,199,.13);
+  --ev-pill-text:#ffe3b3;
+  --ev-pill-border:rgba(246,219,170,.42);
+  --ev-rule:rgba(244,216,174,.31);
+  --ev-orn:#f9dfac;
+  --ev-motif:"✧";
+  --ev-wash:radial-gradient(circle at 83% 18%,rgba(252,224,165,.8) 0 1px,transparent 2px),radial-gradient(circle at 69% 52%,rgba(252,224,165,.7) 0 1px,transparent 2px),radial-gradient(circle at 92% 67%,rgba(255,235,199,.65) 0 1.5px,transparent 2.5px),radial-gradient(circle at 18% 73%,rgba(250,216,177,.65) 0 1px,transparent 2px),radial-gradient(circle at 56% 10%,rgba(251,225,178,.6) 0 1px,transparent 2px),radial-gradient(ellipse at 90% 0%,rgba(235,162,186,.16),transparent 62%);
+}
+#event-wedding {
+  --ev-fill:linear-gradient(145deg,#fffdf4 0%,#f7ebd5 100%);
+  --ev-border:#d8be8d;
+  --ev-accent:#ab7e3c;
+  --ev-title:#6c2d36;
+  --ev-date:#997043;
+  --ev-body:#806251;
+  --ev-icon:#b18a45;
+  --ev-pill:#f1e4c8;
+  --ev-pill-text:#744331;
+  --ev-pill-border:#dfc79b;
+  --ev-rule:rgba(147,109,58,.22);
+  --ev-orn:#a67c40;
+  --ev-motif:"❁";
+  --ev-wash:radial-gradient(ellipse at 90% 0%,rgba(255,240,197,.8),transparent 65%),radial-gradient(ellipse at 0% 105%,rgba(228,198,144,.22),transparent 52%);
+}
+#event-reception {
+  --ev-fill:linear-gradient(140deg,#8e3d32 0%,#802f35 62%,#61232c 100%);
+  --ev-border:#ab6752;
+  --ev-accent:#e3b77e;
+  --ev-title:#fff1e0;
+  --ev-date:#f6d4a8;
+  --ev-body:#f9e1d2;
+  --ev-icon:#f1c68f;
+  --ev-pill:rgba(255,232,199,.14);
+  --ev-pill-text:#ffe8c6;
+  --ev-pill-border:rgba(255,226,182,.38);
+  --ev-rule:rgba(245,208,163,.33);
+  --ev-orn:#eec293;
+  --ev-motif:"❦";
+  --ev-wash:radial-gradient(ellipse at 95% 0%,rgba(255,189,132,.18),transparent 63%),radial-gradient(ellipse at 8% 100%,rgba(96,25,44,.28),transparent 60%);
+}
+.events .common-event-venue {
+  border-color:#ddc49f;
+  background:linear-gradient(100deg,#fffaf0,#fcf1df,#fffaf0);
+  box-shadow:0 3px 12px rgba(80,38,33,.045);
+}
+html[lang="hi"] .events-grid .event-card h3 {
+  font:600 clamp(21px,2.2vw,28px)/1.35 var(--dev);
+}
+html[lang="hi"] .events-grid .event-card p {
+  font-family:var(--dev);
+  font-size:11px;
+  line-height:1.75;
+}
+@media(max-width:1020px) {
+  .events-grid {gap:11px}
+  .events-grid .event-card {min-height:205px}
+}
+@media(max-width:720px) {
+  .events-grid {gap:10px}
+  .events-grid .event-card {
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    min-height:0;
+    padding:14px 15px;
+    gap:5px 9px;
+    align-items:start;
+  }
+  .events-grid .event-card .event-top {grid-column:1/-1;padding-bottom:5px}
+  .events-grid .event-card h3 {grid-column:1;grid-row:2;font-size:clamp(24px,6.5vw,29px);margin:0;align-self:center}
+  .events-grid .event-card .event-time {grid-column:2;grid-row:2;justify-self:end;align-self:center;white-space:nowrap;margin:0;padding:5px 8px;font-size:10px}
+  .events-grid .event-card p {grid-column:1/-1;margin:2px 0 0;font-size:11px}
+  .events-grid .event-card::after {font-size:85px;right:8px;bottom:-20px}
+  html[lang="hi"] .events-grid .event-card h3 {font-size:clamp(20px,5.5vw,25px);line-height:1.3}
+}
+@media(max-width:360px) {
+  .events-grid .event-card {grid-template-columns:1fr}
+  .events-grid .event-card h3 {grid-column:1;grid-row:auto}
+  .events-grid .event-card .event-time {grid-column:1;grid-row:auto;justify-self:start}
+  .events-grid .event-card p {grid-column:1}
+}
