@@ -79,10 +79,9 @@
   let audioGain = null;
   let musicSetupPromise = null;
   let fallbackStage = 'intro';
-  let fallbackIntroLoops = 0;
   const MANGAL_RANG_SECONDS = 30;
   const tracks = {
-    intro:'assets/mangal-rang-envelope-intro.mp3',
+    intro:'assets/mangal-rang-30s.mp3',
     shehnai:'assets/shehnai-ambient-loop.mp3'
   };
 
@@ -103,7 +102,7 @@
     syncMusicToggle();
   }
 
-  // Web Audio keeps one gesture-authorized context alive across the short intro
+  // Web Audio keeps one gesture-authorized context alive across the full 30-second intro
   // and the subsequent shehnai loop; switching HTML <audio> sources at "ended"
   // may be blocked as a new autoplay request on iOS.
   function playWeddingMusic() {
@@ -114,7 +113,6 @@
       if (!musicStarted) {
         musicStarted = true;
         fallbackStage = 'intro';
-        fallbackIntroLoops = 0;
         weddingMusic.loop = false;
         weddingMusic.src = tracks.intro;
         weddingMusic.volume = 0.38;
@@ -144,37 +142,25 @@
         }))
           .then(buffers => Promise.all(buffers.map(bytes => audioContext.decodeAudioData(bytes))))
           .then(([intro, shehnai]) => {
-            if (intro.duration < 1 || shehnai.duration < 1) {
+            if (intro.duration < MANGAL_RANG_SECONDS - 0.3 || shehnai.duration < 1) {
               throw new Error('Wedding audio could not be decoded');
             }
             const startsAt = audioContext.currentTime + 0.08;
             const endsAt = startsAt + MANGAL_RANG_SECONDS;
-            // The supplied Mangal Rang excerpt is nine seconds. Repeat it
-            // with smooth overlaps for a thirty-second opening rather than
-            // abruptly cutting to shehnai after the first excerpt.
-            const overlap = Math.min(0.85, intro.duration / 5);
-            const stride = intro.duration - overlap;
-            for (let index = 0, offset = 0; offset < MANGAL_RANG_SECONDS; index++, offset += stride) {
-              const segmentStartsAt = startsAt + offset;
-              const segmentEndsAt = Math.min(endsAt, segmentStartsAt + intro.duration);
-              const nextStartsAt = segmentStartsAt + stride;
-              const source = audioContext.createBufferSource();
-              const gain = audioContext.createGain();
-              source.buffer = intro;
-              source.connect(gain);
-              gain.connect(audioGain);
-              gain.gain.setValueAtTime(index === 0 ? 1 : 0, segmentStartsAt);
-              if (index > 0) gain.gain.linearRampToValueAtTime(1, segmentStartsAt + overlap);
-              if (nextStartsAt < endsAt) {
-                gain.gain.setValueAtTime(1, nextStartsAt);
-                gain.gain.linearRampToValueAtTime(0, segmentEndsAt);
-              } else {
-                gain.gain.setValueAtTime(1, endsAt - overlap);
-                gain.gain.linearRampToValueAtTime(0, endsAt);
-              }
-              source.start(segmentStartsAt);
-              source.stop(segmentEndsAt);
-            }
+            // Play the complete recording ONCE; do not repeat the old nine-second excerpt.
+            // Crossfade gently into the continuously looping shehnai at the 30-second mark.
+            const overlap = 0.9;
+            const fadeStartsAt = endsAt - overlap;
+            const introGain = audioContext.createGain();
+            introGain.gain.setValueAtTime(1, startsAt);
+            introGain.gain.setValueAtTime(1, fadeStartsAt);
+            introGain.gain.linearRampToValueAtTime(0, endsAt);
+            introGain.connect(audioGain);
+            const introSource = audioContext.createBufferSource();
+            introSource.buffer = intro;
+            introSource.connect(introGain);
+            introSource.start(startsAt);
+            introSource.stop(endsAt);
             const shehnaiGain = audioContext.createGain();
             shehnaiGain.gain.setValueAtTime(0, endsAt - overlap);
             shehnaiGain.gain.linearRampToValueAtTime(1, endsAt);
@@ -208,7 +194,7 @@
     syncMusicToggle();
   }
 
-  // Fallback for older browsers: let Mangal Rang repeat until thirty seconds.
+  // Older browsers use HTML audio and switch once, at 30 seconds.
   function startFallbackShehnai() {
     if (fallbackStage !== 'intro' || !musicEnabled) return;
     fallbackStage = 'shehnai';
@@ -220,22 +206,10 @@
   }
   weddingMusic.addEventListener('timeupdate', () => {
     if (audioContext || fallbackStage !== 'intro' || !musicEnabled) return;
-    const length = Number.isFinite(weddingMusic.duration) ? weddingMusic.duration : 9;
-    if (fallbackIntroLoops * length + weddingMusic.currentTime >= MANGAL_RANG_SECONDS) {
-      startFallbackShehnai();
-    }
+    if (weddingMusic.currentTime >= MANGAL_RANG_SECONDS - 0.1) startFallbackShehnai();
   });
   weddingMusic.addEventListener('ended', () => {
-    if (audioContext || fallbackStage !== 'intro' || !musicEnabled) return;
-    fallbackIntroLoops++;
-    const length = Number.isFinite(weddingMusic.duration) ? weddingMusic.duration : 9;
-    if (fallbackIntroLoops * length >= MANGAL_RANG_SECONDS) {
-      startFallbackShehnai();
-      return;
-    }
-    weddingMusic.currentTime = 0;
-    const attempt = weddingMusic.play();
-    if (attempt && typeof attempt.catch === 'function') attempt.catch(reportMusicError);
+    if (!audioContext && fallbackStage === 'intro' && musicEnabled) startFallbackShehnai();
   });
   weddingMusic.addEventListener('play', syncMusicToggle);
   weddingMusic.addEventListener('pause', syncMusicToggle);
