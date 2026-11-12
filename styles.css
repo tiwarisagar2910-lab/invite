@@ -100,3 +100,10 @@ html[lang="hi"] .families .wisher-card h4,html[lang="hi"] .families .wisher-card
 /* The Tiwari Family applies to all four acknowledgement rows. */
 .families .wishes-family-name{text-align:center;font:700 clamp(13px,1.5vw,16px)/1.4 var(--sans);letter-spacing:.11em;text-transform:uppercase;color:#805139;margin:-5px auto 14px}
 html[lang="hi"] .families .wishes-family-name{font:600 16px/1.7 var(--dev);letter-spacing:0;text-transform:none}
+
+/* One common wedding venue for all four celebration cards. */
+.common-event-venue{max-width:1280px;margin:0 auto 14px;padding:10px 15px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;border:1px solid #dec59e;border-radius:10px;background:#fff9ed;color:#684238;text-align:center;font-size:12px;font-weight:600}
+.common-event-venue>span:first-child{color:#a57940;font-size:18px;line-height:1}
+.common-event-venue a{color:#7b2135;font-weight:700;text-decoration:underline;text-decoration-color:#b88b4b;text-underline-offset:3px;margin-left:4px}
+html[lang="hi"] .common-event-venue{font-family:var(--dev);font-size:12px;line-height:1.6}
+@media(max-width:720px){.common-event-venue{padding:9px 10px;font-size:11px;gap:6px;margin-bottom:12px}}

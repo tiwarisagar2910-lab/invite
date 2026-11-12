@@ -14,7 +14,7 @@
       celebrationsTitle:'Four moments to remember', eventsSubtitle:'All four celebrations, at a glance.',
       filterAll:'All 4 events', filterFriday:'Fri, 4 Dec', filterSaturday:'Sat, 5 Dec',
       friday:'Friday · 4 December 2026', saturday:'Saturday · 5 December 2026',
-      venueShort:'Swaminarayan Banquet Hall · Nashik', directionsAction:'Directions ↗',
+      venueShort:'Swaminarayan Banquet Hall · Nashik', commonVenue:'All celebrations at Swaminarayan Banquet Hall · Nashik', directionsAction:'Directions ↗',
       inviteHeading:'A heartfelt invitation',
       inviteMessage:'With the blessings of Lord Venkateshwara and our families, we warmly invite you to join us, celebrate with us, and bless the bride and groom.',
       familiesEyebrow:'Together with our families', familiesTitle:'Two hearts, two families',
@@ -41,7 +41,7 @@
       eventsSubtitle:'समस्त विवाह कार्यक्रमों की जानकारी एक ही स्थान पर।',
       filterAll:'सभी ४ कार्यक्रम', filterFriday:'शुक्र, ४ दिसंबर', filterSaturday:'शनि, ५ दिसंबर',
       friday:'शुक्रवार · ४ दिसंबर २०२६', saturday:'शनिवार · ५ दिसंबर २०२६',
-      venueShort:'स्वामीनारायण बैंक्वेट हॉल · नाशिक', directionsAction:'मार्ग देखें ↗',
+      venueShort:'स्वामीनारायण बैंक्वेट हॉल · नाशिक', commonVenue:'सभी कार्यक्रम स्वामीनारायण बैंक्वेट हॉल · नाशिक में', directionsAction:'मार्ग देखें ↗',
       inviteHeading:'सादर स्नेह निमंत्रण',
       inviteMessage:'परम पिता की असीम अनुकम्पा एवं श्री वेंकटेश भगवान की कृपा से हमारे यहाँ शुभ विवाह का मंगलमय अवसर है। इस पावन अवसर पर आप सपरिवार पधारकर वर-वधू को अपना स्नेह एवं शुभाशीर्वाद प्रदान कर हमें अनुगृहीत करें।',
       familiesEyebrow:'परिवार का स्नेह एवं आशीर्वाद', familiesTitle:'दो हृदय, दो परिवार',
@@ -77,8 +77,7 @@
       return `<article class="event-card" id="event-${safe(event.id)}">
         <div class="event-top"><span class="event-date">${safe(dateText)}</span><span class="event-icon" aria-hidden="true">${safe(event.icon)}</span></div>
         <h3>${safe(event.title[lang])}</h3><span class="event-time">${safe(event.time[lang])}</span>
-        <p>${safe(event.description[lang])}</p><span class="event-venue">⌖ ${safe(T.venueShort)}</span>
-        <a class="event-map" href="${safe(cfg.mapUrl)}" target="_blank" rel="noopener noreferrer">${safe(T.directionsAction)}</a>
+        <p>${safe(event.description[lang])}</p>
       </article>`;
     }).join('');
   }
