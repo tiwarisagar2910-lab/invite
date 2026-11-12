@@ -684,6 +684,8 @@ html[lang="hi"] .wedding-countdown .countdown-finished {
   }
   .events-grid .event-card .event-top { width: 100%; }
   .events-grid .event-card h3 {
+    align-self: stretch;
+    min-width: 0;
     margin: 0;
     line-height: 1.25;
     overflow-wrap: break-word;
