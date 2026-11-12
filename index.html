@@ -15,10 +15,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261112-audio-contrast-header">
+  <link rel="stylesheet" href="styles.css?v=20261112-wedding-countdown">
   <title>Jyoti & Vaibhav | Wedding Invitation</title>
   <script defer src="config.js"></script>
-  <script defer src="app.js?v=20261112-mangal-rang-30s"></script>
+  <script defer src="app.js?v=20261112-wedding-countdown"></script>
 </head>
 <body>
   <a href="#events" class="skip-link" data-i18n="skip">Skip to events</a>
@@ -67,6 +67,16 @@
             <p class="eyebrow" data-i18n="heroBlessing">With the blessings of our families</p>
             <h3 class="couple-names"><span data-i18n="brideShort">Jyoti</span> <i data-i18n="and">&amp;</i> <span data-i18n="groomShort">Vaibhav</span></h3>
             <p class="hero-date" data-i18n="coverDate">4 &amp; 5 December 2026 · Nashik</p>
+            <div class="wedding-countdown" id="weddingCountdown" role="timer" aria-label="Time until wedding ceremony" aria-live="off">
+              <p class="countdown-heading" data-i18n="countdownHeading">Until the wedding ceremony · 5 Dec, 12 PM IST</p>
+              <div class="countdown-units" id="countdownUnits">
+                <div class="countdown-unit"><span class="countdown-number" data-countdown-unit="days">--</span><span class="countdown-label" data-i18n="countdownDays">Days</span></div>
+                <div class="countdown-unit"><span class="countdown-number" data-countdown-unit="hours">--</span><span class="countdown-label" data-i18n="countdownHours">Hours</span></div>
+                <div class="countdown-unit"><span class="countdown-number" data-countdown-unit="minutes">--</span><span class="countdown-label" data-i18n="countdownMinutes">Minutes</span></div>
+                <div class="countdown-unit"><span class="countdown-number" data-countdown-unit="seconds">--</span><span class="countdown-label" data-i18n="countdownSeconds">Seconds</span></div>
+              </div>
+              <p class="countdown-finished" id="countdownFinished" data-i18n="countdownFinished" hidden>The wedding ceremony is here!</p>
+            </div>
           </div>
           <div class="hero-visual"><img src="assets/couple.webp" alt="Illustration of Jyoti and Vaibhav in Indian wedding attire"></div>
         </div>
