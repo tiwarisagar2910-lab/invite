@@ -70,59 +70,129 @@
   let filter = 'all';
   let opened = false;
   let opening = false;
-  let musicEnabled = true;
+  // A direct #events link opens without a gesture, so never pretend that audio is already playing.
+  let musicEnabled = false;
   let musicStarted = false;
-  let musicStage = 'intro';
-
+  let audioContext = null;
+  let audioGain = null;
+  let musicSetupPromise = null;
+  let fallbackStage = 'intro';
+  const tracks = {
+    intro:'assets/mangal-rang-envelope-intro.mp3',
+    shehnai:'assets/shehnai-ambient-loop.mp3'
+  };
 
   function syncMusicToggle() {
     const T = translations[lang];
+    const playing = musicEnabled && musicStarted && (audioContext ? audioContext.state === 'running' : !weddingMusic.paused);
     musicToggle.classList.toggle('is-enabled', musicEnabled);
-    musicToggle.classList.toggle('is-playing', musicEnabled && !weddingMusic.paused);
+    musicToggle.classList.toggle('is-playing', playing);
     musicToggle.setAttribute('aria-pressed', String(musicEnabled));
     const label = musicEnabled ? T.musicPause : T.musicPlay;
     musicToggle.setAttribute('aria-label', label);
     musicToggle.title = label;
   }
-  function playWeddingMusic() {
-    if (!musicEnabled) return;
-    if (!musicStarted) {
-      musicStarted = true;
-      musicStage = 'intro';
-      weddingMusic.loop = false;
-      weddingMusic.src = 'assets/mangal-rang-envelope-intro.mp3';
-      weddingMusic.volume = 0.38;
-    }
-    const result = weddingMusic.play();
-    if (result && typeof result.catch === 'function') {
-      result.then(syncMusicToggle).catch(() => {
-        musicEnabled = false;
-        syncMusicToggle();
-      });
-    }
+
+  function reportMusicError() {
+    musicEnabled = false;
+    musicToggle.dataset.audioStatus = 'unavailable';
     syncMusicToggle();
   }
-  weddingMusic.addEventListener('ended', () => {
-    if (musicStage !== 'intro' || !musicEnabled) return;
-    musicStage = 'shehnai';
-    weddingMusic.loop = true;
-    weddingMusic.src = 'assets/shehnai-ambient-loop.mp3';
-    weddingMusic.volume = 0.34;
-    const result = weddingMusic.play();
-    if (result && typeof result.catch === 'function') {
-      result.then(syncMusicToggle).catch(() => {
-        musicEnabled = false;
-        syncMusicToggle();
-      });
+
+  // Web Audio keeps one gesture-authorized context alive across the short intro
+  // and the subsequent shehnai loop; switching HTML <audio> sources at "ended"
+  // may be blocked as a new autoplay request on iOS.
+  function playWeddingMusic() {
+    musicEnabled = true;
+    musicToggle.dataset.audioStatus = 'loading';
+    const Context = window.AudioContext || window.webkitAudioContext;
+    if (!Context) {
+      if (!musicStarted) {
+        musicStarted = true;
+        fallbackStage = 'intro';
+        weddingMusic.loop = false;
+        weddingMusic.src = tracks.intro;
+        weddingMusic.volume = 0.38;
+      }
+      const attempt = weddingMusic.play();
+      if (attempt && typeof attempt.catch === 'function') attempt.catch(reportMusicError);
+      syncMusicToggle();
+      return;
     }
+
+    try {
+      if (!audioContext) {
+        audioContext = new Context();
+        audioGain = audioContext.createGain();
+        audioGain.gain.value = 0.28;
+        audioGain.connect(audioContext.destination);
+      }
+      // Resume synchronously within the envelope/music-button click. The MP3
+      // files can finish loading afterward without losing user authorization.
+      const resume = audioContext.resume();
+      if (resume && typeof resume.catch === 'function') resume.catch(reportMusicError);
+      if (!musicSetupPromise) {
+        musicSetupPromise = Promise.all([tracks.intro, tracks.shehnai].map(async url => {
+          const response = await fetch(url, {cache:'force-cache'});
+          if (!response.ok) throw new Error('Audio file not available: ' + url);
+          return response.arrayBuffer();
+        }))
+          .then(buffers => Promise.all(buffers.map(bytes => audioContext.decodeAudioData(bytes))))
+          .then(([intro, shehnai]) => {
+            const introSource = audioContext.createBufferSource();
+            introSource.buffer = intro;
+            introSource.connect(audioGain);
+            const shehnaiSource = audioContext.createBufferSource();
+            shehnaiSource.buffer = shehnai;
+            shehnaiSource.loop = true;
+            shehnaiSource.connect(audioGain);
+            const startsAt = audioContext.currentTime + 0.08;
+            introSource.start(startsAt);
+            shehnaiSource.start(startsAt + intro.duration);
+            musicStarted = true;
+            musicToggle.dataset.audioStatus = 'ready';
+            if (!musicEnabled) audioContext.suspend();
+            syncMusicToggle();
+          }).catch(() => {
+            musicSetupPromise = null; // Allow another attempt after a temporary fetch error.
+            reportMusicError();
+          });
+      }
+      syncMusicToggle();
+    } catch (_) {
+      reportMusicError();
+    }
+  }
+
+  function pauseWeddingMusic() {
+    musicEnabled = false;
+    if (audioContext) {
+      const paused = audioContext.suspend();
+      if (paused && typeof paused.catch === 'function') paused.catch(() => {});
+    } else weddingMusic.pause();
+    syncMusicToggle();
+  }
+
+  // Native audio is used only as a fallback where Web Audio is not supported.
+  weddingMusic.addEventListener('ended', () => {
+    if (audioContext || fallbackStage !== 'intro' || !musicEnabled) return;
+    fallbackStage = 'shehnai';
+    weddingMusic.loop = true;
+    weddingMusic.src = tracks.shehnai;
+    weddingMusic.volume = 0.34;
+    const attempt = weddingMusic.play();
+    if (attempt && typeof attempt.catch === 'function') attempt.catch(reportMusicError);
   });
   weddingMusic.addEventListener('play', syncMusicToggle);
   weddingMusic.addEventListener('pause', syncMusicToggle);
   musicToggle.addEventListener('click', () => {
-    musicEnabled = !musicEnabled;
-    if (!musicEnabled) weddingMusic.pause();
-    else if (opening || opened) playWeddingMusic();
-    syncMusicToggle();
+    if (musicEnabled) pauseWeddingMusic();
+    else playWeddingMusic();
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && musicEnabled && audioContext && audioContext.state === 'suspended') {
+      audioContext.resume().catch(() => {});
+    }
   });
 
   function renderEvents() {
@@ -199,7 +269,8 @@
     }
     if (opening) return;
     opening = true;
-    if (musicEnabled) playWeddingMusic();
+    // Opening the envelope is the user gesture that authorizes audio.
+    playWeddingMusic();
     document.body.classList.add('is-opening');
     const finish = () => {
       opened = true;
