@@ -238,9 +238,9 @@
     $('.nav-links').setAttribute('aria-label', T.navAria);
     $('.language-switch').setAttribute('aria-label', T.languageAria);
     openButton.setAttribute('aria-label', T.openAria);
-    $('.cover-emblem').src = lang === 'hi' ? 'assets/ganpati.png' : 'assets/jv-emblem.png';
-    $('.cover-emblem').alt = lang === 'hi' ? T.altGanpati : T.altEmblem;
-    $('.brand img').src = lang === 'hi' ? 'assets/ganpati.png' : 'assets/jv-emblem.png';
+    $('.cover-emblem').src = 'assets/jv-emblem.png';
+    $('.cover-emblem').alt = T.altEmblem;
+    $('.brand img').src = 'assets/jv-emblem.png';
     $('.brand span').textContent = lang === 'hi' ? 'ज्योति संग वैभव' : 'J & V';
     $('.ganpati').alt = T.altGanpati;
     $('.hero-visual img').alt = T.altCouple;
