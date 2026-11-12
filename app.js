@@ -12,6 +12,7 @@
       heroSub:'With love and blessings, we invite you to celebrate the wedding of', heroVisualLabel:'Together with our loved ones',
       viewCelebrations:'Explore our celebrations ↓', celebrationsEyebrow:'The celebrations',
       celebrationsTitle:'Four moments to remember', eventsSubtitle:'All four celebrations, at a glance.',
+      countdownHeading:'Until the wedding ceremony · 5 Dec, 12 PM IST', countdownDays:'Days', countdownHours:'Hours', countdownMinutes:'Minutes', countdownSeconds:'Seconds', countdownFinished:'The wedding ceremony is here!', countdownAria:'Time until wedding ceremony',
       filterAll:'All 4 events', filterFriday:'Fri, 4 Dec', filterSaturday:'Sat, 5 Dec',
       friday:'Friday · 4 December 2026', saturday:'Saturday · 5 December 2026',
       venueShort:'Swaminarayan Banquet Hall · Nashik', commonVenue:'All celebrations at Swaminarayan Banquet Hall · Nashik', directionsAction:'Directions ↗',
@@ -39,6 +40,7 @@
       heroVisualLabel:'अपनों के स्नेह और आशीर्वाद के साथ', viewCelebrations:'मांगलिक कार्यक्रम देखें ↓',
       celebrationsEyebrow:'मांगलिक कार्यक्रम', celebrationsTitle:'चार मंगलमय अवसर',
       eventsSubtitle:'समस्त विवाह कार्यक्रमों की जानकारी एक ही स्थान पर।',
+      countdownHeading:'शुभ विवाह में शेष समय · ५ दिसंबर, दोपहर १२ बजे', countdownDays:'दिन', countdownHours:'घंटे', countdownMinutes:'मिनट', countdownSeconds:'सेकंड', countdownFinished:'शुभ विवाह की बेला आ गई है!', countdownAria:'शुभ विवाह तक शेष समय',
       filterAll:'सभी ४ कार्यक्रम', filterFriday:'शुक्र, ४ दिसंबर', filterSaturday:'शनि, ५ दिसंबर',
       friday:'शुक्रवार · ४ दिसंबर २०२६', saturday:'शनिवार · ५ दिसंबर २०२६',
       venueShort:'स्वामीनारायण बैंक्वेट हॉल · नाशिक', commonVenue:'सभी कार्यक्रम स्वामीनारायण बैंक्वेट हॉल · नाशिक में', directionsAction:'मार्ग देखें ↗',
@@ -247,6 +249,41 @@
     }
   });
 
+  // Nashik wedding ceremony: 5 December 2026, 12:00 noon India Standard Time (+05:30).
+  // This absolute instant is correct for visitors in every time zone.
+  const WEDDING_COUNTDOWN_TARGET = Date.parse('2026-12-05T12:00:00+05:30');
+  const countdown = $('#weddingCountdown');
+  const countdownUnits = $('#countdownUnits');
+  const countdownFinished = $('#countdownFinished');
+  const countdownDigits = {
+    days: countdown.querySelector('[data-countdown-unit="days"]'),
+    hours: countdown.querySelector('[data-countdown-unit="hours"]'),
+    minutes: countdown.querySelector('[data-countdown-unit="minutes"]'),
+    seconds: countdown.querySelector('[data-countdown-unit="seconds"]')
+  };
+  function updateCountdown() {
+    const remaining = Math.max(0, Math.ceil((WEDDING_COUNTDOWN_TARGET - Date.now()) / 1000));
+    const finished = remaining === 0;
+    countdownUnits.hidden = finished;
+    countdownFinished.hidden = !finished;
+    countdown.setAttribute('aria-label', finished ? translations[lang].countdownFinished : translations[lang].countdownAria);
+    if (finished) return;
+    const days = Math.floor(remaining / 86400);
+    const hours = Math.floor((remaining % 86400) / 3600);
+    const minutes = Math.floor((remaining % 3600) / 60);
+    const seconds = remaining % 60;
+    countdownDigits.days.textContent = String(days).padStart(2, '0');
+    countdownDigits.hours.textContent = String(hours).padStart(2, '0');
+    countdownDigits.minutes.textContent = String(minutes).padStart(2, '0');
+    countdownDigits.seconds.textContent = String(seconds).padStart(2, '0');
+  }
+  // Align refreshes to the wall clock; the value is recalculated from Date.now,
+  // so device sleep or inactive browser tabs cannot accumulate drift.
+  window.setInterval(updateCountdown, 1000);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) updateCountdown();
+  });
+
   function renderEvents() {
     const T = translations[lang];
     const events = cfg.events.filter(e => filter === 'all' || e.date === filter);
@@ -298,7 +335,7 @@
     $('.hero-visual img').alt = T.altCouple;
     $('.qr-card img').alt = T.altQr;
     $('.letter-initials').textContent = lang === 'hi' ? 'ज्योति ♥ वैभव' : 'J & V';
-    renderEvents();renderFamilies();syncMusicToggle();
+    renderEvents();renderFamilies();syncMusicToggle();updateCountdown();
     try { localStorage.setItem('jv-invitation-language', lang); } catch (err) { /* Preferences are optional. */ }
   }
   $$('.language-btn').forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.lang)));
