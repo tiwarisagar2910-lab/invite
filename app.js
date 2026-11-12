@@ -75,6 +75,7 @@
     $('#eventsList').innerHTML = events.map(event => {
       const dateText = event.date === '2026-12-04' ? T.friday : T.saturday;
       return `<article class="event-card" id="event-${safe(event.id)}">
+        <div class="event-art" aria-hidden="true"><img src="assets/event-${safe(event.id)}.svg" alt="" loading="lazy" decoding="async"></div>
         <div class="event-top"><span class="event-date">${safe(dateText)}</span><span class="event-icon" aria-hidden="true">${safe(event.icon)}</span></div>
         <h3>${safe(event.title[lang])}</h3><span class="event-time">${safe(event.time[lang])}</span>
         <p>${safe(event.description[lang])}</p>
