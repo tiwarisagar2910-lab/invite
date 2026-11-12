@@ -25,7 +25,7 @@
       venueNote:'All four wedding celebrations take place here.', mapsButton:'Open Google Maps ↗', qrCaption:'Scan for directions',
       footerDate:'4 & 5 December 2026 · Nashik', footerNote:'Your presence and blessings mean the world to us.',
       parentsJoin:'&', openAria:'Open the wedding invitation', navAria:'Main navigation', languageAria:'Invitation language',
-      paperHeading:'Jyoti & Vaibhav | Wedding Invitation', altGanpati:'Gold Ganpati illustration',
+      paperHeading:'Jyoti & Vaibhav | Wedding Invitation', musicPause:'Mute wedding music', musicPlay:'Play wedding music', altGanpati:'Gold Ganpati illustration',
       altEmblem:'Jyoti Sang Vaibhav wedding emblem', altCouple:'Illustration of Jyoti and Vaibhav in Indian wedding attire',
       altQr:'Wedding venue QR code'
     },
@@ -53,7 +53,7 @@
       qrCaption:'मार्ग जानने के लिए स्कैन करें', footerDate:'४ एवं ५ दिसंबर २०२६ · नाशिक',
       footerNote:'आपकी उपस्थिति एवं आशीर्वाद हमारे लिए अमूल्य हैं।', parentsJoin:'एवं',
       openAria:'विवाह निमंत्रण खोलें', navAria:'मुख्य नेविगेशन', languageAria:'निमंत्रण की भाषा',
-      paperHeading:'ज्योति संग वैभव | विवाह निमंत्रण', altGanpati:'श्री गणेश जी की स्वर्णिम छवि',
+      paperHeading:'ज्योति संग वैभव | विवाह निमंत्रण', musicPause:'संगीत बंद करें', musicPlay:'संगीत चलाएँ', altGanpati:'श्री गणेश जी की स्वर्णिम छवि',
       altEmblem:'ज्योति संग वैभव का विवाह चिह्न', altCouple:'पारम्परिक विवाह परिधान में ज्योति एवं वैभव का चित्र',
       altQr:'विवाह स्थल का क्यूआर कोड'
     }
@@ -64,10 +64,66 @@
   const pages = $('#invitationPages');
   const cover = $('#cover');
   const openButton = $('#openInvitation');
+  const musicToggle = $('#musicToggle');
+  const weddingMusic = $('#weddingMusic');
   let lang = 'en';
   let filter = 'all';
   let opened = false;
   let opening = false;
+  let musicEnabled = true;
+  let musicStarted = false;
+  let musicStage = 'intro';
+
+
+  function syncMusicToggle() {
+    const T = translations[lang];
+    musicToggle.classList.toggle('is-enabled', musicEnabled);
+    musicToggle.classList.toggle('is-playing', musicEnabled && !weddingMusic.paused);
+    musicToggle.setAttribute('aria-pressed', String(musicEnabled));
+    const label = musicEnabled ? T.musicPause : T.musicPlay;
+    musicToggle.setAttribute('aria-label', label);
+    musicToggle.title = label;
+  }
+  function playWeddingMusic() {
+    if (!musicEnabled) return;
+    if (!musicStarted) {
+      musicStarted = true;
+      musicStage = 'intro';
+      weddingMusic.loop = false;
+      weddingMusic.src = 'assets/mangal-rang-envelope-intro.mp3';
+      weddingMusic.volume = 0.38;
+    }
+    const result = weddingMusic.play();
+    if (result && typeof result.catch === 'function') {
+      result.then(syncMusicToggle).catch(() => {
+        musicEnabled = false;
+        syncMusicToggle();
+      });
+    }
+    syncMusicToggle();
+  }
+  weddingMusic.addEventListener('ended', () => {
+    if (musicStage !== 'intro' || !musicEnabled) return;
+    musicStage = 'shehnai';
+    weddingMusic.loop = true;
+    weddingMusic.src = 'assets/shehnai-ambient-loop.mp3';
+    weddingMusic.volume = 0.34;
+    const result = weddingMusic.play();
+    if (result && typeof result.catch === 'function') {
+      result.then(syncMusicToggle).catch(() => {
+        musicEnabled = false;
+        syncMusicToggle();
+      });
+    }
+  });
+  weddingMusic.addEventListener('play', syncMusicToggle);
+  weddingMusic.addEventListener('pause', syncMusicToggle);
+  musicToggle.addEventListener('click', () => {
+    musicEnabled = !musicEnabled;
+    if (!musicEnabled) weddingMusic.pause();
+    else if (opening || opened) playWeddingMusic();
+    syncMusicToggle();
+  });
 
   function renderEvents() {
     const T = translations[lang];
@@ -120,7 +176,7 @@
     $('.hero-visual img').alt = T.altCouple;
     $('.qr-card img').alt = T.altQr;
     $('.letter-initials').textContent = lang === 'hi' ? 'ज्योति ♥ वैभव' : 'J & V';
-    renderEvents();renderFamilies();
+    renderEvents();renderFamilies();syncMusicToggle();
     try { localStorage.setItem('jv-invitation-language', lang); } catch (err) { /* Preferences are optional. */ }
   }
   $$('.language-btn').forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.lang)));
@@ -143,6 +199,7 @@
     }
     if (opening) return;
     opening = true;
+    if (musicEnabled) playWeddingMusic();
     document.body.classList.add('is-opening');
     const finish = () => {
       opened = true;

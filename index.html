@@ -29,10 +29,13 @@
       <a href="#families" data-nav="families" data-i18n="navFamilies">Families</a>
       <a href="#directions" data-nav="directions" data-i18n="navDirections">Directions</a>
     </nav>
-    <div class="language-switch" role="group" aria-label="Invitation language">
-      <button type="button" class="language-btn active" data-lang="en" aria-pressed="true">ENGLISH</button>
-      <span aria-hidden="true">|</span>
-      <button type="button" class="language-btn" data-lang="hi" aria-pressed="false">हिन्दी</button>
+    <div class="header-actions">
+      <div class="language-switch" role="group" aria-label="Invitation language">
+        <button type="button" class="language-btn active" data-lang="en" aria-pressed="true">ENGLISH</button>
+        <span aria-hidden="true">|</span>
+        <button type="button" class="language-btn" data-lang="hi" aria-pressed="false">हिन्दी</button>
+      </div>
+      <button type="button" id="musicToggle" class="music-toggle is-enabled" aria-label="Mute wedding music" aria-pressed="true" title="Mute wedding music"><span aria-hidden="true">♫</span></button>
     </div>
   </header>
   <main>
@@ -88,6 +91,7 @@
       <footer class="site-footer"><span class="footer-flourish" aria-hidden="true">❦</span><h2><span data-i18n="brideShort">Jyoti</span> <em data-i18n="and">&amp;</em> <span data-i18n="groomShort">Vaibhav</span></h2><p data-i18n="footerDate">4 &amp; 5 December 2026 · Nashik</p><p class="footer-message" data-i18n="footerNote">Your presence and blessings mean the world to us.</p><a class="instagram-link" href="https://www.instagram.com/jyotisangvaibhav/" target="_blank" rel="noopener noreferrer">@jyotisangvaibhav ↗</a></footer>
     </div>
   </main>
+  <audio id="weddingMusic" preload="none" playsinline aria-hidden="true"></audio>
   <div class="river-ribbon" aria-hidden="true"></div>
 </body>
 </html>

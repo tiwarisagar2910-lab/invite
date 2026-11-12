@@ -483,3 +483,29 @@ html[lang="hi"] .event-card h3{font-family:var(--dev)}
   .nav-links {gap:clamp(12px,5vw,20px)}
   .language-btn {font-size:10px;padding:6px 7px}
 }
+
+
+/* Discreet accessible wedding soundtrack control beside the language switch. */
+.header-actions {justify-self:end;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.music-toggle {
+  display:grid;place-items:center;flex:0 0 auto;
+  width:37px;height:37px;border-radius:50%;
+  border:1px solid #cbad7b;background:#fff7e7;color:#8a5e41;
+  font:700 22px/1 Georgia,serif;
+  cursor:pointer;transition:background .2s,color .2s,border-color .2s;
+}
+.music-toggle:hover,.music-toggle:focus-visible{border-color:#955b63;background:#f6e8d7}
+.music-toggle.is-enabled{background:var(--wine);border-color:#955068;color:#f6d6a3}
+.music-toggle.is-playing span{animation:music-glow 2.5s ease-in-out infinite}
+@keyframes music-glow{0%,100%{opacity:1}50%{opacity:.65}}
+@media(max-width:720px) {
+  .header-actions{gap:5px}
+  .music-toggle{width:32px;height:32px;font-size:20px}
+}
+@media(max-width:520px) {
+  .header-actions{grid-column:3;grid-row:1;justify-self:end}
+  .language-switch{justify-self:auto}
+}
+@media(prefers-reduced-motion:reduce) {
+  .music-toggle.is-playing span{animation:none}
+}
