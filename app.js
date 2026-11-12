@@ -77,6 +77,8 @@
   let audioGain = null;
   let musicSetupPromise = null;
   let fallbackStage = 'intro';
+  let fallbackIntroLoops = 0;
+  const MANGAL_RANG_SECONDS = 30;
   const tracks = {
     intro:'assets/mangal-rang-envelope-intro.mp3',
     shehnai:'assets/shehnai-ambient-loop.mp3'
@@ -110,6 +112,7 @@
       if (!musicStarted) {
         musicStarted = true;
         fallbackStage = 'intro';
+        fallbackIntroLoops = 0;
         weddingMusic.loop = false;
         weddingMusic.src = tracks.intro;
         weddingMusic.volume = 0.38;
@@ -139,16 +142,46 @@
         }))
           .then(buffers => Promise.all(buffers.map(bytes => audioContext.decodeAudioData(bytes))))
           .then(([intro, shehnai]) => {
-            const introSource = audioContext.createBufferSource();
-            introSource.buffer = intro;
-            introSource.connect(audioGain);
+            if (intro.duration < 1 || shehnai.duration < 1) {
+              throw new Error('Wedding audio could not be decoded');
+            }
+            const startsAt = audioContext.currentTime + 0.08;
+            const endsAt = startsAt + MANGAL_RANG_SECONDS;
+            // The supplied Mangal Rang excerpt is nine seconds. Repeat it
+            // with smooth overlaps for a thirty-second opening rather than
+            // abruptly cutting to shehnai after the first excerpt.
+            const overlap = Math.min(0.85, intro.duration / 5);
+            const stride = intro.duration - overlap;
+            for (let index = 0, offset = 0; offset < MANGAL_RANG_SECONDS; index++, offset += stride) {
+              const segmentStartsAt = startsAt + offset;
+              const segmentEndsAt = Math.min(endsAt, segmentStartsAt + intro.duration);
+              const nextStartsAt = segmentStartsAt + stride;
+              const source = audioContext.createBufferSource();
+              const gain = audioContext.createGain();
+              source.buffer = intro;
+              source.connect(gain);
+              gain.connect(audioGain);
+              gain.gain.setValueAtTime(index === 0 ? 1 : 0, segmentStartsAt);
+              if (index > 0) gain.gain.linearRampToValueAtTime(1, segmentStartsAt + overlap);
+              if (nextStartsAt < endsAt) {
+                gain.gain.setValueAtTime(1, nextStartsAt);
+                gain.gain.linearRampToValueAtTime(0, segmentEndsAt);
+              } else {
+                gain.gain.setValueAtTime(1, endsAt - overlap);
+                gain.gain.linearRampToValueAtTime(0, endsAt);
+              }
+              source.start(segmentStartsAt);
+              source.stop(segmentEndsAt);
+            }
+            const shehnaiGain = audioContext.createGain();
+            shehnaiGain.gain.setValueAtTime(0, endsAt - overlap);
+            shehnaiGain.gain.linearRampToValueAtTime(1, endsAt);
+            shehnaiGain.connect(audioGain);
             const shehnaiSource = audioContext.createBufferSource();
             shehnaiSource.buffer = shehnai;
             shehnaiSource.loop = true;
-            shehnaiSource.connect(audioGain);
-            const startsAt = audioContext.currentTime + 0.08;
-            introSource.start(startsAt);
-            shehnaiSource.start(startsAt + intro.duration);
+            shehnaiSource.connect(shehnaiGain);
+            shehnaiSource.start(endsAt - overlap);
             musicStarted = true;
             musicToggle.dataset.audioStatus = 'ready';
             if (!musicEnabled) audioContext.suspend();
@@ -173,13 +206,32 @@
     syncMusicToggle();
   }
 
-  // Native audio is used only as a fallback where Web Audio is not supported.
-  weddingMusic.addEventListener('ended', () => {
-    if (audioContext || fallbackStage !== 'intro' || !musicEnabled) return;
+  // Fallback for older browsers: let Mangal Rang repeat until thirty seconds.
+  function startFallbackShehnai() {
+    if (fallbackStage !== 'intro' || !musicEnabled) return;
     fallbackStage = 'shehnai';
     weddingMusic.loop = true;
     weddingMusic.src = tracks.shehnai;
     weddingMusic.volume = 0.34;
+    const attempt = weddingMusic.play();
+    if (attempt && typeof attempt.catch === 'function') attempt.catch(reportMusicError);
+  }
+  weddingMusic.addEventListener('timeupdate', () => {
+    if (audioContext || fallbackStage !== 'intro' || !musicEnabled) return;
+    const length = Number.isFinite(weddingMusic.duration) ? weddingMusic.duration : 9;
+    if (fallbackIntroLoops * length + weddingMusic.currentTime >= MANGAL_RANG_SECONDS) {
+      startFallbackShehnai();
+    }
+  });
+  weddingMusic.addEventListener('ended', () => {
+    if (audioContext || fallbackStage !== 'intro' || !musicEnabled) return;
+    fallbackIntroLoops++;
+    const length = Number.isFinite(weddingMusic.duration) ? weddingMusic.duration : 9;
+    if (fallbackIntroLoops * length >= MANGAL_RANG_SECONDS) {
+      startFallbackShehnai();
+      return;
+    }
+    weddingMusic.currentTime = 0;
     const attempt = weddingMusic.play();
     if (attempt && typeof attempt.catch === 'function') attempt.catch(reportMusicError);
   });
